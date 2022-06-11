@@ -3,13 +3,12 @@
 namespace App\Controller\Back;
 
 use App\Entity\Article;
-use App\Form\Type\ArticleType;
-use DateTime;
+use App\Form\Article\Type\ArticleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
 class ArticleController extends AbstractController
@@ -22,111 +21,106 @@ class ArticleController extends AbstractController
 
     /**
      * @return mixed
-     * @Route("/admin/show", name="admin_show")
+     * @Route("/admin/articles", name="back_articles_list")
      */
-    public function indexArticle()
+    public function list()
     {
         $article = $this->entityManager->getRepository(Article::class)->findAll();
 
-        return $this->render('back/article/index.html.twig', [
+        return $this->render('back/article/list.html.twig', [
             'articles' => $article,
         ]);
     }
 
     /**
-     * @Route("/create", name="create_article")
+     * @Route("/admin/articles/new", name="back_articles_new")
      *
      * @param Request $request
      * @return Response
      */
-    public function newArticle(Request $request): Response
+    public function new(Request $request): Response
     {
         $article = new Article();
-        $article->setCreatedAt(new DateTime('now'));
 
         $form = $this->createForm(ArticleType::class, $article);
 
-
-
-        if ($request->isMethod('POST')){
+        if ($request->isMethod('POST')) {
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()) {
-                    /*$form->getData();*/
-                    /*dd($form->getData());*/
+            if ($form->isSubmitted() && $form->isValid()) {
 
-                    $this->entityManager->persist($article);
-                    $this->entityManager->flush();
+                $this->entityManager->persist($article);
+                $this->entityManager->flush();
 
-                    return $this->redirectToRoute('back_home');
+                return $this->redirectToRoute('back_articles_list');
             }
         }
 
         return $this->render('back/article/new.html.twig', [
             'form' => $form->createView(),
         ]);
-
     }
 
     /**
-     * @Route("show/{id}", name="show_Article")
-     * @param Article $article
+     * @Route("/admin/articles/show/{id}", name="back_articles_show")
+     * @param $id
      * @return Response
      */
-    public function showArticle(Article $article): Response
+    public function show($id): Response
     {
+        $article = $this->entityManager->getRepository(Article::class)->find($id);
 
-        if (!$article) {
-            throw $this->createNotFoundException(
-                "Aucun article n'a été trouver avec l'id n°".$article->getId()
-            );
-        }
-        $article = $this->entityManager->getRepository(Article::class)->find($article->getId());
-
-        /*$comments*/
-
-        return $this->render('back/article/list.html.twig', [
+        return $this->render('back/article/show.html.twig', [
             'article' => $article
         ]);
     }
 
     /**
-     * @Route("/edit/{id}", name="article_edit")
-     * @param Article $article
+     * @Route("/admin/articles/edit/{id}", name="back_articles_edit")
      * @param Request $request
      * @return Response
      */
-
-    public function UpdateArticle(Article $article,Request $request): Response
+    public function edit($id, Request $request): Response
     {
-        $article = $this->entityManager->getRepository(Article::class)->find($article->getId());
+        $article = $this->entityManager->getRepository(Article::class)->find($id);
         $form = $this->createForm(ArticleType::class, $article);
 
-        if ($request->isMethod('POST')){
+        if ($request->isMethod('POST')) {
             $form->handleRequest($request);
 
-            $this->entityManager->persist($article);
-            $this->entityManager->flush();
+            if($form->isSubmitted() && $form->isValid())
+            {
+                $this->entityManager->persist($article);
+                $this->entityManager->flush();
 
-            return $this->redirectToRoute('show_Article', ['id' => $article->getId()]);
+                return $this->redirectToRoute('back_articles_list');
+            }
         }
 
         return $this->render('back/article/edit.html.twig', [
             'form' => $form->createView(),
+            'article' => $article,
         ]);
     }
 
 
     /**
-     * @Route("/delete/{id}", name="delete_article")
-     * @param Article $article
+     * @Route("/admin/articles/disable/{id}", name="back_articles_disable")
+     * @param $id
      * @return mixed
      */
-    public function deleteArticle(Article $article): Response
+    public function disable($id): Response
     {
-        $this->entityManager->remove($article);
+        $article = $this->entityManager->getRepository(Article::class)->find($id);
+
+        $active = !$article->isActive();
+
+        $article->setActive($active);
+
+        $this->entityManager->persist($article);
+
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('admin_show', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('back_articles_list');
     }
 }

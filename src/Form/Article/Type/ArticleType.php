@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Type;
+namespace App\Form\Article\Type;
 
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
@@ -17,28 +17,16 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre de l\'annonce',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Titre de l\'article',
+                    'placeholder' => 'Titre',
                 ],
             ])
             ->add('content', TextareaType::class, [
-                'label' => 'Contenu de l\'article',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Contenu de l\'article',
+                    'placeholder' => 'Contenu',
                 ],
-            ])
-            ->add('createdAt', DateTimeType::class, [
-                'label' => 'Veuillez choisir une date',
-                'required' => true,
-            ])
-            ->add('Envoyer', SubmitType::class, [
-                'label' => 'Création de votre annonce',
-                'attr' => [
-                    'class' => 'btn-primary'
-                ]
             ])
         ;
     }

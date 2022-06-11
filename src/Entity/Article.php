@@ -33,14 +33,15 @@ class Article
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $active;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->active = true;
+    }
 
     public function getId(): ?int
     {
@@ -79,18 +80,6 @@ class Article
     public function setCreatedAt(?\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -1,14 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_back.html.twig' %}
 
 {% block content %}
 
+    <h1>Editer l'article numéro {{ article.id }}</h1>
+
     {{ form_start(form) }}
-        {{ form_label(form.title) }}
-        {{ form_widget(form.title) }}
-        {{ form_label(form.content) }}
-        {{ form_widget(form.content) }}
-        {{ form_label(form.createdAt) }}
-        {{ form_widget(form.createdAt) }}
+
+    <label for="">Titre : </label>
+    {{ form_widget(form.title) }}
+
+    <label for="">Contenu : </label>
+    {{ form_widget(form.content) }}
+
+    {{ form_rest(form) }}
+
+    <button type="submit">Confirmer</button>
+
     {{ form_end(form) }}
 
 {% endblock %}

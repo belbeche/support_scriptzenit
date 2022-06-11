@@ -2,15 +2,20 @@
 
 {% block content %}
 
+    <h1>Ajouter un article</h1>
+
     {{ form_start(form) }}
-        {{ form_label(form.title) }}
+
+        <label for="">Titre : </label>
         {{ form_widget(form.title) }}
-        {{ form_label(form.content) }}
+
+        <label for="">Contenu : </label>
         {{ form_widget(form.content) }}
-        {{ form_label(form.createdAt) }}
-        {{ form_widget(form.createdAt) }}
+
+        {{ form_rest(form) }}
+
+        <button type="submit">Confirmer</button>
+
     {{ form_end(form) }}
-
-
 
 {% endblock %}

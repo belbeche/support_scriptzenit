@@ -2,8 +2,43 @@
 
 {% block content %}
 
-    {{ article.title }}
-    {{ article.content }}
-    {{ article.createdAt|date('d-m-Y') }}
+    <h1>Articles</h1>
+
+    <a href="{{ url('back_articles_new') }}">Ajouter un nouvel article</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Date de création</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.id }}</td>
+                    <td>{{ article.title}}</td>
+                    <td>{{ article.content }}</td>
+                    <td>{{ article.createdAt|date('d-m-Y') }}</td>
+                    <td>
+                        {% if article.active == true %}
+                            Activé
+                        {% else %}
+                            Désactivé
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url('back_articles_show', {id: article.id }) }}">Voir</a>
+                        <a href="{{ url('back_articles_edit', {id: article.id }) }}">Editer</a>
+                        <a href="{{ url('back_articles_disable', {id: article.id }) }}">Désactivé</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
