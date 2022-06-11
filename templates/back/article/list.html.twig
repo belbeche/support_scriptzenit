@@ -1,0 +1,9 @@
+{% extends 'base_back.html.twig' %}
+
+{% block content %}
+
+    {{ article.title }}
+    {{ article.content }}
+    {{ article.createdAt|date('d-m-Y') }}
+
+{% endblock %}
