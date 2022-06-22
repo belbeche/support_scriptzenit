@@ -3,8 +3,18 @@
 
 {% block content %}
 
-	<div class="cover">
-		<h1>HELLO, WORLD !!!</h1>
+
+	<h1>Bienvenue sur la page home</h1>
+
+	<div>
+		{% for article in articles %}
+			<div>
+				<h3>{{ article.title }}</h3>
+				<p>Ajouté le : {{ article.createdAt|date('d-m-Y') }} à {{ article.createdAt|date('H:m:i') }}</p>
+				<a href="{{ url('front_articles_show', {slug: article.slug}) }}">En savoir plus</a>
+			</div>
+			<hr>
+		{% endfor %}
 	</div>
 
 {% endblock %}

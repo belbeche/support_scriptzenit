@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+
+
+    <h1>Bienvenue mon blog</h1>
+
+    <div>
+        {% for article in articles %}
+            <div>
+                <h3>{{ article.title }}</h3>
+                <p>Ajouté le : {{ article.createdAt|date('d-m-Y') }} à {{ article.createdAt|date('H:m:i') }}</p>
+                <a href="{{ url('front_articles_show', {slug: article.slug}) }}">En savoir plus</a>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(articles) }}
+    </div>
+{% endblock %}

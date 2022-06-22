@@ -15,7 +15,9 @@
 	</head>
 	<body>
 		{% block body %}
-			{% block nav %}{% endblock %}
+			{% block nav %}
+				{% include 'front/includes/nav.html.twig' %}
+			{% endblock %}
 			{% block content %}{% endblock %}
 		{% endblock %}
 

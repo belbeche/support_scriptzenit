@@ -1,8 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+	<div>
+		<h1>{{ article.title }}</h1>
 
-	<h1>Article show controller</h1>
+		<p>{{ article.content }}</p>
 
+		<p>{{ article.createdAt|date('d-m-Y') }}</p>
+
+			{{ form_start(form) }}
+
+				{{ form_widget(form.content) }}
+
+				{{ form_rest(form) }}
+
+				<button type="submit">Confirmer</button>
+
+			{{ form_end(form) }}
+	</div>
+
+	<h1>Commentaires </h1>
+
+	{% for comment in article.commentaires %}
+		<p>
+			{{ comment.content }}
+		</p>
+
+	{% endfor %}
 
 {% endblock %}

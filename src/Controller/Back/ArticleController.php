@@ -4,31 +4,42 @@ namespace App\Controller\Back;
 
 use App\Entity\Article;
 use App\Form\Article\Type\ArticleType;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Knp\Component\Pager\PaginatorInterface;
+
 
 class ArticleController extends AbstractController
 {
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager,ArticleRepository $repository)
     {
         $this->entityManager = $entityManager;
+        $this->repository = $repository;
     }
 
     /**
      * @return mixed
      * @Route("/admin/articles", name="back_articles_list")
      */
-    public function list()
+    public function list(Request $request, PaginatorInterface $paginator)
     {
-        $article = $this->entityManager->getRepository(Article::class)->findAll();
+
+        $data = $this->entityManager->getRepository(Article::class)->findAll();
+
+        $articles = $paginator->paginate(
+            $data,
+            $request->query->getInt('page',1),
+            12
+        );
 
         return $this->render('back/article/list.html.twig', [
-            'articles' => $article,
+            'articles' => $articles,
         ]);
     }
 
@@ -112,13 +123,8 @@ class ArticleController extends AbstractController
     public function disable($id): Response
     {
         $article = $this->entityManager->getRepository(Article::class)->find($id);
-
-        $active = !$article->isActive();
-
-        $article->setActive($active);
-
+        $article->setActive(!$article->isActive());
         $this->entityManager->persist($article);
-
         $this->entityManager->flush();
 
         return $this->redirectToRoute('back_articles_list');
