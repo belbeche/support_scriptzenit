@@ -1,0 +1,52 @@
+{% extends 'base_back.html.twig' %}
+
+{% block content %}
+
+    <h1>Categorie</h1>
+
+    <a href="{{ url('back_category_add') }}">Ajouter une nouvelle categorie</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Titre</th>
+            <th>Contenu</th>
+            <th>Date de création</th>
+            <th>Categorie</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.title}}</td>
+                <td>{{ article.content }}</td>
+                {% for category in article.category %}
+                <td>{{  }}</td>
+                {% endfor %}
+                <td>{{ article.content }}</td>
+                <td>{{ article.createdAt|date('d-m-Y') }}</td>
+                <td>
+                    {% if article.category == true %}
+                        {{ article.category. }}
+                    {% else %}
+                        Désactivé
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url('back_articles_show', {id: article.id }) }}">Voir</a>
+                    <a href="{{ url('back_articles_edit', {id: article.id }) }}">Editer</a>
+                    <a href="{{ url('back_articles_disable', {id: article.id }) }}">Désactivé</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        {#<div class="navigation">
+            {{ knp_pagination_render(articles) }}
+        </div>#}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -25,18 +25,13 @@ class Categorie
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $slug;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Article::class, inversedBy="categories")
      */
-    private $Article;
+    private $article;
 
     public function __construct()
     {
-        $this->Article = new ArrayCollection();
+        $this->article = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,38 +51,26 @@ class Categorie
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Article>
      */
     public function getArticle(): Collection
     {
-        return $this->Article;
+        return $this->article;
     }
 
     public function addArticle(Article $article): self
     {
-        if (!$this->Article->contains($article)) {
-            $this->Article[] = $article;
+        if (!$this->article->contains($article)) {
+            $this->article[] = $article;
         }
 
         return $this;
     }
 
-    public function removeArticle(Article $article): self
+    public function removeArticle(article $article): self
     {
-        $this->Article->removeElement($article);
+        $this->article->removeElement($article);
 
         return $this;
     }
