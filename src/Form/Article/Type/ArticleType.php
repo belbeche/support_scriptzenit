@@ -3,6 +3,9 @@
 namespace App\Form\Article\Type;
 
 use App\Entity\Article;
+use App\Entity\Category;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -28,6 +31,25 @@ class ArticleType extends AbstractType
                     'placeholder' => 'Contenu',
                 ],
             ])
+            /*->add('categories', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'mapped' => false,
+            ])*/
+            ->add('categories',
+                EntityType::class,
+                [
+                    'class'         => Category::class,
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('ca')
+                            ->orderBy('ca.name', 'ASC');
+                    },
+                    'expanded' => true,
+                    'multiple'      => true,
+                    'choice_label'   => 'name',
+                    'required'    => false,
+                ]
+            )
         ;
     }
 

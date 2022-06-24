@@ -101,6 +101,7 @@ class ArticleController extends AbstractController
 
             if($form->isSubmitted() && $form->isValid())
             {
+                /*dd($article->getCategories());*/
                 $this->entityManager->persist($article);
                 $this->entityManager->flush();
 

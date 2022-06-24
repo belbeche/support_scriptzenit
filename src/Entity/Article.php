@@ -50,16 +50,16 @@ class Article
     private $commentaires;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Categorie::class, mappedBy="Article")
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="articles")
      */
-    private $categorie;
+    private $categories;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->active = true;
         $this->commentaires = new ArrayCollection();
-        $this->categorie = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,13 +151,11 @@ class Article
         return $this;
     }
 
-
-
     public function addCommentaire(Comment $commentaire): self
     {
         if (!$this->commentaires->contains($commentaire)) {
             $this->commentaires[] = $commentaire;
-            $commentaire->setArticles($this);
+            $commentaire->setArticle($this);
         }
 
         return $this;
@@ -167,38 +165,33 @@ class Article
     {
         if ($this->commentaires->removeElement($commentaire)) {
             // set the owning side to null (unless already changed)
-            if ($commentaire->getArticles() === $this) {
-                $commentaire->setArticles(null);
+            if ($commentaire->getArticle() === $this) {
+                $commentaire->setArticle(null);
             }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Categorie>
-     */
-    public function getCategorie(): Collection
+    public function getCategories()
     {
-        return $this->categorie;
+        return $this->categories;
     }
 
-    public function addCategory(Categorie $category): self
+    public function setCategories(ArrayCollection $categories)
     {
-        if (!$this->categorie->contains($category)) {
-            $this->categorie[] = $category;
-            $category->addArticle($this);
-        }
+        $this->categories = $categories;
 
         return $this;
     }
 
-    public function removeCategory(Categorie $category): self
+    public function addCategory(Category $category)
     {
-        if ($this->categorie->removeElement($category)) {
-            $category->removeArticle($this);
-        }
+        $this->categories[] = $category;
+    }
 
-        return $this;
+    public function removeCategory(Category $category)
+    {
+        $this->categories->removeElement($category);
     }
 }

@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorieRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CategorieRepository::class)
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
-class Categorie
+class Category
 {
     /**
      * @ORM\Id
@@ -22,16 +22,16 @@ class Categorie
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Article::class, inversedBy="categories")
+     * @ORM\ManyToMany(targetEntity=Article::class, mappedBy="categories")
      */
-    private $article;
+    private $articles;
 
     public function __construct()
     {
-        $this->article = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -39,39 +39,36 @@ class Categorie
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): self
+    public function setName(string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Article>
-     */
-    public function getArticle(): Collection
+    public function getArticles(): ArrayCollection
     {
-        return $this->article;
+        return $this->articles;
     }
 
-    public function addArticle(Article $article): self
+    public function setArticles(ArrayCollection $articles): Category
     {
-        if (!$this->article->contains($article)) {
-            $this->article[] = $article;
-        }
-
+        $this->articles = $articles;
         return $this;
     }
 
-    public function removeArticle(article $article): self
+    public function addArticle(Article $article)
     {
-        $this->article->removeElement($article);
+        $this->articles[] = $article;
+    }
 
-        return $this;
+    public function removeArticle(Article $article)
+    {
+        $this->articles->removeElement($article);
     }
 }

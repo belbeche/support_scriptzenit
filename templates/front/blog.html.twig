@@ -10,6 +10,9 @@
         {% for article in articles %}
             <div>
                 <h3>{{ article.title }}</h3>
+                {% for category in article.categories %}
+                    <p>Categorie : {{ category.name }}</p>
+                {% endfor %}
                 <p>Ajouté le : {{ article.createdAt|date('d-m-Y') }} à {{ article.createdAt|date('H:m:i') }}</p>
                 <a href="{{ url('front_articles_show', {slug: article.slug}) }}">En savoir plus</a>
             </div>

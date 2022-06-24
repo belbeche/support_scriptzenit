@@ -2,11 +2,9 @@
 
 namespace App\Form\Article\Type;
 
-use App\Entity\Article;
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +17,7 @@ class CommentType extends AbstractType
             ->add('content', TextareaType::class, [
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Contenu',
+                    'placeholder' => 'Contenu du commentaire',
                 ],
             ])
         ;

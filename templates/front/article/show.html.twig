@@ -3,6 +3,9 @@
 {% block content %}
 	<div>
 		<h1>{{ article.title }}</h1>
+		{% for category in article.categories %}
+			<p>Categorie : {{ category.name }}</p>
+		{% endfor %}
 
 		<p>{{ article.content }}</p>
 
@@ -25,7 +28,6 @@
 		<p>
 			{{ comment.content }}
 		</p>
-
 	{% endfor %}
 
 {% endblock %}

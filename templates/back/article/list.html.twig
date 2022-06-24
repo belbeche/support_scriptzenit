@@ -6,12 +6,12 @@
 
     <a href="{{ url('back_articles_new') }}">Ajouter un nouvel article</a>
 
-    <table>
+    <table border="1">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Titre</th>
-                <th>Contenu</th>
+                <th>Categorie</th>
                 <th>Date de création</th>
                 <th>Etat</th>
                 <th>Actions</th>
@@ -22,7 +22,11 @@
                 <tr>
                     <td>{{ article.id }}</td>
                     <td>{{ article.title}}</td>
-                    <td>{{ article.content }}</td>
+                    <td>
+                        {% for category in article.categories %}
+                            {{ category.name }} {% if loop.last != true %}/{% endif %}
+                        {% endfor %}
+                    </td>
                     <td>{{ article.createdAt|date('d-m-Y') }}</td>
                     <td>
                         {% if article.active == true %}

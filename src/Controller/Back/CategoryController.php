@@ -2,30 +2,51 @@
 
 namespace App\Controller\Back;
 
-
-use App\Entity\Article;
-use App\Entity\Categorie;
-use App\Form\Article\Type\CategorieType;
+use App\Entity\Category;
+use App\Form\Article\Type\CategoryType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CategorieController extends AbstractController
+class CategoryController extends AbstractController
 {
     /**
-     * @Route("/admin/categorie", name="back_categories_list")
+     * @Route("/admin/categorie/listes", name="back_categories_list")
      * @return Response
      */
-    public function listCategorie(
+    public function list(
+        EntityManagerInterface $em,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response
+    {
+        $data = $em->getRepository(Category::class)->findAll();
+
+        $category = $paginator->paginate(
+            $data,
+            $request->query->getInt('page',1),
+            12
+        );
+
+        return $this->render('back/category/list.html.twig', [
+            'categories' => $category,
+        ]);
+    }
+    /**
+     * @Route("/admin/categorie/ajouter", name="back_category_add")
+     * @return Response
+     */
+    public function new(
         EntityManagerInterface $em,
         Request $request
     ): Response
     {
 
-        $categorie = new Categorie();
-        $form = $this->createForm(CategorieType::class, $categorie);
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
 
         if($request->isMethod('POST'))
         {
@@ -36,16 +57,63 @@ class CategorieController extends AbstractController
                 /*$test = $form->getData();
                 dump($test);*/
 
-                $em->persist($categorie);
+                $em->persist($category);
                 $em->flush();
 
-                /*return $this->redirectToRoute('back_categories_list');*/
+                return $this->redirectToRoute('back_categories_list');
             }
         }
 
 
-        return $this->render('back/categorie/list.html.twig', [
+        return $this->render('back/category/new.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/categorie/afficher/{id}", name="back_categories_show")
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function show(EntityManagerInterface $entityManager,$id)
+    {
+
+        $categorie = $entityManager->getRepository(Category::class)->find($id);
+
+        return $this->render('back/category/show.html.twig', [
+            'categorie' => $categorie,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/categorie/edit/{id}", name="back_categories_edit")
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(
+        $id,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $category = $entityManager->getRepository(Category::class)->find($id);
+        $form = $this->createForm(CategoryType::class, $category);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid())
+            {
+                $entityManager->persist($category);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('back_categories_list');
+            }
+        }
+
+        return $this->render('back/category/edit.html.twig', [
+            'form' => $form->createView(),
+            'categorie' => $category,
         ]);
     }
 }
