@@ -6,12 +6,19 @@
 
     <a href="{{ url('back_articles_new') }}">Ajouter un nouvel article</a>
 
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+
     <table border="1">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Titre</th>
                 <th>Categorie</th>
+                <th>Utilisateur</th>
                 <th>Date de création</th>
                 <th>Etat</th>
                 <th>Actions</th>
@@ -27,6 +34,9 @@
                             {{ category.name }} {% if loop.last != true %}/{% endif %}
                         {% endfor %}
                     </td>
+                    <td>
+                        {{  }}
+                    </td>
                     <td>{{ article.createdAt|date('d-m-Y') }}</td>
                     <td>
                         {% if article.active == true %}
@@ -36,9 +46,10 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ url('back_articles_show', {id: article.id }) }}">Voir</a>
+                        <a href="{{ url('back_articles_show', {slug: article.slug }) }}">Voir</a>
                         <a href="{{ url('back_articles_edit', {id: article.id }) }}">Editer</a>
                         <a href="{{ url('back_articles_disable', {id: article.id }) }}">Désactivé</a>
+                        <a href="{{ url('back_articles_remove', {id: article.id }) }}">Supprimé</a>
                     </td>
                 </tr>
             {% endfor %}
