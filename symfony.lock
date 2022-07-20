@@ -1,4 +1,16 @@
 {
+    "antishov/doctrine-extensions-bundle": {
+        "version": "1.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.4",
+            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
+        },
+        "files": [
+            "./config/packages/stof_doctrine_extensions.yaml"
+        ]
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -52,6 +64,9 @@
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.8.0"
+    },
+    "mercuryseries/flashy-bundle": {
+        "version": "v5.1.0"
     },
     "phpunit/phpunit": {
         "version": "9.5",
@@ -312,6 +327,9 @@
             "./package.json",
             "./webpack.config.js"
         ]
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.10.0"
     },
     "twig/extra-bundle": {
         "version": "v3.4.0"

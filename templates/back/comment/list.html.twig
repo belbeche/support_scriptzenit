@@ -4,13 +4,12 @@
 
     <h1>Commentaires</h1>
 
-    <a href="{{ url('back_category_add') }}">Ajouter un commentaire</a>
-
     <table>
         <thead>
         <tr>
             <th>#</th>
             <th>Titre du commentaire</th>
+            <th>Etat</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -20,8 +19,15 @@
                 <td>{{ comment.id }}</td>
                 <td>{{ comment.content }}</td>
                 <td>
-                    <a href="{{ url('back_categories_show', {id: comment.id }) }}">Voir</a>
-                    <a href="{{ url('back_categories_edit', {id: comment.id }) }}">Editer</a>
+                    {% if comment.active == true %}
+                        Activé
+                        {% else %}
+                        Désactivé
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url('back_comments_show', {id: comment.id }) }}">Voir</a>
+                    <a href="{{ url('back_comments_disable', {id: comment.id }) }}">Désactiver</a>
                 </td>
             </tr>
         {% endfor %}

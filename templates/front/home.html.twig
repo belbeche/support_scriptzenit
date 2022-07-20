@@ -11,7 +11,7 @@
 			<div>
 				<h3>{{ article.title }}</h3>
 				<p>Ajouté le : {{ article.createdAt|date('d-m-Y') }} à {{ article.createdAt|date('H:m:i') }}</p>
-				<p>{{  }}</p>
+				<p>Utilisateur: {{ article.user.username }}</p>
 				<a href="{{ url('front_articles_show', {slug: article.slug}) }}">En savoir plus</a>
 			</div>
 			<hr>

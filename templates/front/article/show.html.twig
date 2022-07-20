@@ -10,24 +10,30 @@
 		<p>{{ article.content }}</p>
 
 		<p>{{ article.createdAt|date('d-m-Y') }}</p>
+			{% if app.user %}
+				{{ form_start(form) }}
 
-			{{ form_start(form) }}
+					{{ form_widget(form.content) }}
 
-				{{ form_widget(form.content) }}
+					{{ form_rest(form) }}
 
-				{{ form_rest(form) }}
+					<button type="submit">Confirmer</button>
 
-				<button type="submit">Confirmer</button>
-
-			{{ form_end(form) }}
+				{{ form_end(form) }}
+			{% endif %}
 	</div>
 
 	<h1>Commentaires </h1>
 
+
 	{% for comment in article.commentaires %}
+		{# dump the data in twig #}
+		{{ dump(article.user.username) }}
 		<p>
-			{{ comment.content }}
+			{{ article.user.username }} à dit : {{ comment.content }}
 		</p>
+	{% else %}
+		<p>Pas de commentaires...</p>
 	{% endfor %}
 
 {% endblock %}

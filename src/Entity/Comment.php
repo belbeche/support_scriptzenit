@@ -28,6 +28,18 @@ class Comment
      */
     private $article;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +66,36 @@ class Comment
     {
         $this->article = $article;
 
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     * @return Comment
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
         return $this;
     }
 }

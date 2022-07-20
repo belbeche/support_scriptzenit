@@ -34,9 +34,6 @@
                             {{ category.name }} {% if loop.last != true %}/{% endif %}
                         {% endfor %}
                     </td>
-                    <td>
-                        {{  }}
-                    </td>
                     <td>{{ article.createdAt|date('d-m-Y') }}</td>
                     <td>
                         {% if article.active == true %}
