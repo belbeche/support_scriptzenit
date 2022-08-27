@@ -1,12 +1,14 @@
 {% extends 'base_back.html.twig' %}
 
 {% block content %}
-    <h1>{{ article.slug }}</h1>
-    <p>
-        {{ article.content }}
-    </p>
-    <p>
-        {{ article.createdAt|date('Y-m-d') }} à {{ article.createdAt|date('H:m:i') }}
-    </p>
+    <div class="container">
+        <h1>{{ article.slug }}</h1>
+        <p>
+            {{ article.content|raw }}
+        </p>
+        <p>
+            {{ article.createdAt|date('Y-m-d') }} à {{ article.createdAt|date('H:m:i') }}
+        </p>
+    </div>
 
 {% endblock %}

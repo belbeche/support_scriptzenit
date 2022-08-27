@@ -3,19 +3,47 @@
 
 {% block content %}
 
+	{% for message in app.flashes('message') %}
+		<div>{{ message }}</div>
+	{% endfor %}
 
-	<h1>Bienvenue sur la page home</h1>
-
-	<div>
-		{% for article in articles %}
-			<div>
-				<h3>{{ article.title }}</h3>
-				<p>Ajouté le : {{ article.createdAt|date('d-m-Y') }} à {{ article.createdAt|date('H:m:i') }}</p>
-				<p>Utilisateur: {{ article.user.username }}</p>
-				<a href="{{ url('front_articles_show', {slug: article.slug}) }}">En savoir plus</a>
+	<section>
+		<div class="container">
+			<div class="media-container-row">
+				<div class="title">
+					<h1 class="align-center display-1">Symfony 5 BLOG</h1>
+					<h3 class="align-center  display-5">Par <em>Walid BELBECHE &copy; Access Code School Nevers 2022</em>&nbsp;</h3>
+				</div>
 			</div>
-			<hr>
-		{% endfor %}
+		</div>
+	</section>
+	<br>
+	<!-- NEWSLETTERS -->
+	<div class="container">
+		{{ form_start(newsletters) }}
+		<label for="">Email</label>
+		{{ form_widget(newsletters.email) }}
+		<br>
+		<button type="submit" class="btn btn-outline-success">Je m'informe !</button>
+		{{ form_end(newsletters) }}
 	</div>
+	<!-- ./ NEWSLETTERS -->
+	{#<div class="header d-none d-lg-block">
+		<strong>Meet your friends</strong>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error inventore laudantium obcaecati rem tenetur. At et fuga illo illum inventore maxime quas quia quo suscipit tempore. Aspernatur consequuntur maiores veritatis.
+		</p>
+	</div>#}
+
+	<!-- Home Start -->
+	{#<section class="py-5 text-center container">
+		<div class="row py-lg-5">
+			<div class="col-lg-6 col-md-8 mx-auto">
+				<h1 class="fw-light">Bienvenue sur le blog Stay Online</h1>
+				<code class="w3-codespan">('hello World!') !</code>
+			</div>
+		</div>
+	</section>#}
+	<!-- Home End -->
 
 {% endblock %}

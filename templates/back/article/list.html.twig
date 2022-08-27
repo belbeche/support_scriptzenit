@@ -12,14 +12,14 @@
         {% endfor %}
     {% endfor %}
 
-    <table border="1">
+    <table class="table-light">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Titre</th>
                 <th>Categorie</th>
-                <th>Utilisateur</th>
                 <th>Date de création</th>
+                <th>Auteure</th>
                 <th>Etat</th>
                 <th>Actions</th>
             </tr>
@@ -35,6 +35,7 @@
                         {% endfor %}
                     </td>
                     <td>{{ article.createdAt|date('d-m-Y') }}</td>
+                    <td>{{ article.user.username }}</td>
                     <td>
                         {% if article.active == true %}
                             Activé

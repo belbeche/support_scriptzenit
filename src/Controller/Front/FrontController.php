@@ -3,6 +3,9 @@
 namespace App\Controller\Front;
 
 use App\Entity\Article;
+use App\Entity\Image;
+use App\Entity\Newsletters;
+use App\Form\Newsletters\Type\NewslettersType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,15 +18,31 @@ class FrontController extends AbstractController
     /**
      * @Route("/", name="front_home")
      */
-    public function home(EntityManagerInterface $entityManager)
+    public function home(EntityManagerInterface $entityManager, Request $request)
     {
-
         $articles = $entityManager->getRepository(Article::class)->findBy(['active' => true], ['id' => 'desc'], 10, null);
-        if($articles == true){
-            $this->addFlash('warning', 'Tous les articles ont était chargé !');
+
+        $users = new Newsletters();
+
+        $form = $this->createForm(NewslettersType::class, $users);
+
+        $form->handleRequest($request);
+
+        if($request->isMethod('POST'))
+        {
+            if($form->isSubmitted() && $form->isValid())
+            {
+                $entityManager->persist($users);
+                $entityManager->flush();
+
+                $this->addFlash('email_registred', 'Merci de votre inscription !');
+                return $this->redirectToRoute('front_home');
+            }
         }
+
         return $this->render('front/home.html.twig', [
-            'articles' => $articles
+            'articles' => $articles,
+            'newsletters' => $form->createView(),
         ]);
     }
 
@@ -31,7 +50,11 @@ class FrontController extends AbstractController
      * @Route("/blog", name="front_blog")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function blog(EntityManagerInterface $entityManager, PaginatorInterface $paginator,Request $request)
+    public function blog(
+        EntityManagerInterface $entityManager,
+        PaginatorInterface $paginator,
+        Request $request
+    )
     {
         $data = $entityManager->getRepository(Article::class)->findBy(['active' => true]);
 

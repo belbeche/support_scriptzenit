@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -22,11 +23,13 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $content;
 
@@ -38,7 +41,7 @@ class Article
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $active;
+    private $active = false;
 
     /**
      * @Gedmo\Slug(fields={"title"})
@@ -62,12 +65,29 @@ class Article
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
+     */
+    private $images;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="favoris")
+     */
+    private $favoris;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $video_url;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->active = true;
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,6 +150,17 @@ class Article
     {
         return $this->slug;
     }
+
+    /**
+     * @param mixed $slug
+     * @return Article
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 
     /**
      * @return Collection<int, Comment>
@@ -201,6 +232,63 @@ class Article
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function setImages(ArrayCollection $images): Article
+    {
+        $this->images = $images;
+        return $this;
+    }
+
+    public function addImage(Image $image)
+    {
+        $this->images[] = $image;
+    }
+
+    public function removeImage(Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(User $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris[] = $favori;
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(User $favori): self
+    {
+        $this->favoris->removeElement($favori);
+
+        return $this;
+    }
+
+    public function getVideoUrl(): ?string
+    {
+        return $this->video_url;
+    }
+
+    public function setVideoUrl(?string $video_url): self
+    {
+        $this->video_url = $video_url;
 
         return $this;
     }

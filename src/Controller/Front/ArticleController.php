@@ -5,6 +5,7 @@ namespace App\Controller\Front;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Entity\Image;
 use App\Form\Article\Type\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -38,8 +39,10 @@ class ArticleController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+
                 $comment->setArticle($article);
                 $comment->setUser($this->getUser());
+                /*dump($this->getUser());die();*/
                 $entityManager->persist($comment);
                 $entityManager->flush();
 
@@ -47,9 +50,18 @@ class ArticleController extends AbstractController
             }
         }
 
+        $comments = $entityManager->getRepository(Comment::class)->findBy(
+            [
+                'article' => $article,
+                'active' => true,
+            ],
+            ['id' => 'DESC']
+        );
+
         return $this->render('front/article/show.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
+            'comments' => $comments
         ]);
     }
 }

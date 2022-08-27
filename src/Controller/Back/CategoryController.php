@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Form\Article\Type\CategoryType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/admin/categorie/listes", name="back_categories_list")
      * @return Response
+     * @IsGranted("ROLE_ADMIN")
      */
     public function list(
         EntityManagerInterface $em,
@@ -38,6 +40,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/admin/categorie/ajouter", name="back_category_add")
      * @return Response
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(
         EntityManagerInterface $em,
@@ -74,6 +77,7 @@ class CategoryController extends AbstractController
      * @Route("/admin/categorie/afficher/{id}", name="back_categories_show")
      * @param EntityManagerInterface $entityManager
      * @return Response
+     * @IsGranted("ROLE_ADMIN")
      */
     public function show(EntityManagerInterface $entityManager,$id)
     {
@@ -115,5 +119,14 @@ class CategoryController extends AbstractController
             'form' => $form->createView(),
             'categorie' => $category,
         ]);
+    }
+
+    /**
+     * @param EntityManagerInterface $entityManager
+     * @Route("/remove/{id}", name="back_categories_remove")
+     */
+    public function remove(EntityManagerInterface $entityManager)
+    {
+
     }
 }

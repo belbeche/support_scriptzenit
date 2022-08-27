@@ -2,23 +2,49 @@
 
 {% block content %}
 
-    <h1>Editer l'article numéro {{ article.id }}</h1>
+    <div class="container">
+        <h1>Editer l'article numéro {{ article.id }}</h1>
 
-    {{ form_start(form) }}
+        {{ form_start(form) }}
 
-    <label for="">Titre : </label>
-    {{ form_widget(form.title) }}
+        <label for="">Titre : </label>
+        {{ form_widget(form.title) }}
 
-    <label for="">Contenu : </label>
-    {{ form_widget(form.content) }}
+        <label for="">Contenu : </label>
+        {{ form_widget(form.content) }}
 
-    <label for="">Categorie : </label>
-    {{ form_widget(form.categories) }}
+        <label for="">Categorie : </label>
+        {{ form_widget(form.categories) }}
 
-    {{ form_rest(form) }}
+        <div class="row">
+            <div class="col-md-6">
+                {% if app.request.attributes.get('_route') == 'back_articles_edit' %}
+                    <hr>
+                    <h2>Gestion des images</h2>
+                    {% for image in article.images %}
+                        <div>
+                            <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="150">
 
-    <button type="submit">Confirmer</button>
+                            {# We add a link to delete an image (will be managed in Ajax in images.js) #}
+                            <a href="{{ path('back_articles_remove_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
 
-    {{ form_end(form) }}
+            </div>
+
+            <div class="col-md-6">
+                <label for=""> Ajout d'image(s) <small>(max: 2MB)</small></label>
+                {{ form_widget(form.images) }}
+                <hr>
+                <label for=""> Ajout de lien de vidéo </label>
+                {{ form_widget(form.videourl) }}
+                <br>
+                <button type="submit" class="btn btn-info">Confirmer</button>
+            </div>
+                {{ form_rest(form) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Entity\Comment;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,7 @@ class CommentController extends AbstractController
     /**
      * @Route("/admin/comments", name="back_comments_list")
      * @return Response
+     * @IsGranted("ROLE_ADMIN")
      */
     public function list(EntityManagerInterface $entityManager , PaginatorInterface $paginator, Request $request): Response
     {
@@ -36,6 +38,7 @@ class CommentController extends AbstractController
      * @Route("/admin/commentaires/afficher/{id}", name="back_comments_show")
      * @param EntityManagerInterface $entityManager
      * @return Response
+     * @IsGranted("ROLE_ADMIN")
      */
     public function show(EntityManagerInterface $entityManager,$id)
     {
@@ -50,6 +53,7 @@ class CommentController extends AbstractController
      * @Route("/admin/commentaires/desactiver/{id}", name="back_comments_disable")
      * @param EntityManagerInterface $entityManager
      * @param $id
+     * @IsGranted("ROLE_ADMIN")
      */
     public function disable(EntityManagerInterface $entityManager,$id)
     {

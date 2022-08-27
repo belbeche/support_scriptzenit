@@ -1,26 +1,37 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Blog | {{ parent() }}{% endblock %}
+
 
 {% block content %}
 
+    <h1 class="text-center display-1"> - Articles récents - </h1>
 
-    <h1>Bienvenue mon blog</h1>
+    <hr>
 
-    <div>
+    <div class="card-com">
+
+
         {% for article in articles %}
-            <div>
-                <h3>{{ article.title }}</h3>
-                {% for category in article.categories %}
-                    <p>Categorie : {{ category.name }}</p>
-                {% endfor %}
-                <p>Ajouté le : {{ article.createdAt|date('d-m-Y') }} à {{ article.createdAt|date('H:m:i') }}</p>
-                <a href="{{ url('front_articles_show', {slug: article.slug}) }}">En savoir plus</a>
+            <div class="card m-2" style="width: 20rem;">
+                <a href="{{ url('front_articles_show', {'slug': article.slug}) }}">
+                    {% for image in article.images %}
+                        <img class="card-img-top" src="{{ asset('uploads/' ~image.name) }}" alt="{{ article.title }}">
+                    {% endfor %}
+                </a>
+
+                <div class="card-body">
+                    <a href="{{ url('front_articles_show', {'slug': article.slug}) }}">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                    </a>
+                    <small class="card-text text-secondary">{{ article.content|slice(0, 50)|raw }}...</small>
+                </div>
             </div>
-            <hr>
         {% endfor %}
     </div>
 
-    <div class="navigation">
+    <div class="navigation pagination pagination-lg">
         {{ knp_pagination_render(articles) }}
     </div>
+
 {% endblock %}
