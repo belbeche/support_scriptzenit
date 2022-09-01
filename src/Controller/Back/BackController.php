@@ -2,8 +2,13 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Article;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,13 +19,27 @@ class BackController extends AbstractController
      * @return Response
      * @IsGranted("ROLE_ADMIN")
      */
-    public function home(): Response
+    public function home(
+        EntityManagerInterface $entityManager,
+        Request $request,
+        PaginatorInterface $paginator
+    ): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $articles = $entityManager->getRepository(Article::class)->findBy([],['createdAt' => 'DESC']);
 
-        // or add an optional message - seen by developers
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+        $data = $articles;
 
-        return $this->render('back/home.html.twig');
+        $articles = $paginator->paginate(
+            $data,
+            $request->query->getInt('page',1),
+            12
+        );
+
+        $users = $entityManager->getRepository(User::class)->findAll();
+
+        return $this->render('back/home.html.twig',[
+            'articles' => $articles,
+            'users' => $users,
+        ]);
     }
 }

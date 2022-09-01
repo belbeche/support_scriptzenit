@@ -7,7 +7,7 @@ use App\Entity\Image;
 use App\Entity\User;
 use App\Form\Article\Type\ArticleType;
 use App\Repository\ArticleRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -75,43 +75,40 @@ class ArticleController extends AbstractController
 
                 $article->setUser($this->getUser());
 
+                $article->setCreatedAt(new \DateTime);
+
+                $article->setIsPublished(false);
+
+                $article->setUpdatedAt(new \DateTime);
+
                 $images = $form->get('images')->getData();
 
                 foreach($images as $image){
                     // We generate a new file name
-                    $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                    $file = md5(uniqid()).'.'.$image->guessExtension();
 
                     // On copie le fichier dans le dossier uploads
-                    try {
-                        $image->move(
-                            $this->getParameter('images_directory'),
-                            $fichier
-                        );
-                    } catch (FileException $e) {
-                    return new Response($e->getMessage());
-                }
 
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $file
+                    );
 
-                    // On crée l'image dans la base de données
+                    // We add image in the database and to the article
                     $img = new Image();
-                    $img->setName($fichier);
+                    $img->setName($file);
                     $article->addImage($img);
                     $img->setArticle($article);
                 }
 
-                if ($article->getCreatedAt() === null) {
-                    // on renseigne le slug de l'article
-                    $article->setSlug(
-                        strtolower($article->getSlug())
-                    );
-                }
 
                 $this->entityManager->persist($article);
+
                 $this->entityManager->flush();
 
-                $this->addFlash('back_articles_ajouter_success','Article ajouté avec succéss');
+                $this->addFlash('success','Article ajouté avec succéss');
 
-                return $this->redirectToRoute('back_articles_list');
+                return $this->redirectToRoute('back_home');
             }
         }
 
@@ -119,6 +116,36 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
             'article' => $article,
         ]);
+    }
+
+    /**
+     * @Route("/publier/{slug}", name="back_articles_publish")
+     */
+    public function publish(Article $article)
+    {
+        if ($article->getImages() !== null && $article->getImages() !== ''
+            && $article->getContent() !== null && $article->getContent() !== ''
+            && $article->getCategories() !== null
+            && $article->getTitle() !== null && $article->getTitle() !== ''
+        ) {
+            $article->setPublishedAt(new \DateTime);
+
+            $article->setIsPublished(true);
+
+            $this->entityManager->persist($article);
+            $this->entityManager->flush();
+
+            // We redirect to the article display page if everything is OK
+            return $this->redirectToRoute(
+                'back_articles_show',
+                ['slug' => $article->getSlug()]
+            );
+        }
+
+        return $this->redirectToRoute(
+            'back_articles_edit',
+            ['slug' => $article->getSlug()]
+        );
     }
 
     /**
@@ -138,14 +165,16 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/admin/articles/edit/{id}", name="back_articles_edit")
+     * @Route("/admin/articles/edit/{slug}", name="back_articles_edit")
      * @param Request $request
      * @return Response
      * @IsGranted("ROLE_ADMIN")
      */
-    public function edit($id, Request $request): Response
+    public function edit(
+        Article $article,
+        Request $request
+    ): Response
     {
-        $article = $this->entityManager->getRepository(Article::class)->find($id);
         $form = $this->createForm(ArticleType::class, $article);
 
         if ($request->isMethod('POST')) {
@@ -158,6 +187,8 @@ class ArticleController extends AbstractController
                 foreach($images as $image){
                     // We generate a new file name
                     $fichier = md5(uniqid()).'.'.$image->guessExtension();
+
+                    $article->setUpdatedAt(new \DateTime("NOW"));
 
                     // On copie le fichier dans le dossier uploads
                     $image->move(
@@ -172,11 +203,18 @@ class ArticleController extends AbstractController
                     $img->setArticle($article);
                 }
 
-                /*dd($article->getCategories());*/
+                /*if ($article->getPublishedAt() === null) {
+                    // on renseigne le slug de l'article
+                    $article->setSlug(
+                        strtolower($article->getSlug())
+                    );
+                }*/
+
+
                 $this->entityManager->persist($article);
                 $this->entityManager->flush();
 
-                return $this->redirectToRoute('back_articles_list');
+                return $this->redirectToRoute('back_home');
             }
         }
 
@@ -193,57 +231,64 @@ class ArticleController extends AbstractController
      * @return mixed
      * @IsGranted("ROLE_ADMIN")
      */
-    public function disable($id): Response
+    public function disable(
+        $id
+    ): Response
     {
         $article = $this->entityManager->getRepository(Article::class)->find($id);
         $article->setActive(!$article->isActive());
         $this->entityManager->persist($article);
         $this->entityManager->flush();
         if($article->isActive() == true){
-            $this->addFlash('back_article_disable', "L'article ".$article->getSlug()." a bien était désactiver :[");
+            $this->addFlash('warning', "L'article ".$article->getSlug()." a bien était désactiver :[");
         }else {
-            $this->addFlash('back_article_enable', "L'article ".$article->getSlug()." a bien était réactiver :]");
+            $this->addFlash('success', "L'article ".$article->getSlug()." a bien était réactiver :]");
         }
 
         return $this->redirectToRoute('back_articles_list');
     }
 
     /**
-     * @Route("/admin/article/remove/{id}", name="back_articles_remove")
+     * @Route("/admin/article/remove/{slug}", name="back_articles_remove")
      * @return Response
      * @IsGranted("ROLE_ADMIN")
      */
-    public function remove($id,Request $request): Response
+    public function remove(
+        Article $article,
+        Request $request
+    ): Response
     {
-        $article = $this->entityManager->getRepository(Article::class)->find($id);
 
-
-        if($article->isActive(false)){
-            $this->addFlash('back_article_remove', "L'article " . $article->getSlug() . " est supprimé avec success !");
+        if($article->getCreatedAt(true)){
+            $this->addFlash('success', "L'article " . $article->getSlug() . " est supprimé avec success !");
             $this->entityManager->remove($article);
             $this->entityManager->flush();
         }else {
-            $this->addFlash('back_article_non_remove', "L'article " . $article->getSlug() . " est activé, disactivez-le puis réessayer, merci.");
+            $this->addFlash('success', "L'article " . $article->getSlug() . " est activé, disactivez-le puis réessayer, merci.");
         }
 
-        return $this->redirectToRoute('back_articles_list');
+        return $this->redirectToRoute('back_home');
     }
 
     /**
-     * @Route("/back/articles/remove/image/{id}", name="back_articles_remove_image", methods={"DELETE"})
+     * @Route("/back/articles/remove/image/{name}", name="back_articles_remove_image", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function deleteImage(Image $image, Request $request){
+    public function deleteImage(Image $image, Request $request)
+    {
         $data = json_decode($request->getContent(), true);
 
         // We check if the token is valid
-        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+        if($this->isCsrfTokenValid('delete'.$image->getName(), $data['_token'])){
+
             // We get the name of the image
             $nom = $image->getName();
+
             // We delete the file
             unlink($this->getParameter('images_directory').'/'.$nom);
 
             // We delete the entry from the database
+
             $this->entityManager->remove($image);
             $this->entityManager->flush();
 

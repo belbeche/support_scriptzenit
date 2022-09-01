@@ -20,7 +20,7 @@ class FrontController extends AbstractController
      */
     public function home(EntityManagerInterface $entityManager, Request $request)
     {
-        $articles = $entityManager->getRepository(Article::class)->findBy(['active' => true], ['id' => 'desc'], 10, null);
+        $articles = $entityManager->getRepository(Article::class)->findBy(['isPublished' => true], ['id' => 'desc'], 10, null);
 
         $users = new Newsletters();
 
@@ -35,7 +35,7 @@ class FrontController extends AbstractController
                 $entityManager->persist($users);
                 $entityManager->flush();
 
-                $this->addFlash('email_registred', 'Merci de votre inscription !');
+                $this->addFlash('success', 'Merci de votre inscription ! Vous serez informé sous peu de nos dernières actualités.');
                 return $this->redirectToRoute('front_home');
             }
         }
@@ -61,7 +61,7 @@ class FrontController extends AbstractController
         $articles = $paginator->paginate(
             $data,
             $request->query->getInt('page',1),
-            12
+            5
         );
 
         return $this->render('front/blog.html.twig', [

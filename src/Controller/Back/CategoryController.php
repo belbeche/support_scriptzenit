@@ -56,9 +56,7 @@ class CategoryController extends AbstractController
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid())
             {
-                /*$categorie->addArticle($article);*/
-                /*$test = $form->getData();
-                dump($test);*/
+                /*$category->addArticle($category->);*/
 
                 $em->persist($category);
                 $em->flush();

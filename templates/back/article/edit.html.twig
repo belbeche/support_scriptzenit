@@ -1,50 +1,34 @@
 {% extends 'base_back.html.twig' %}
 
 {% block content %}
+    <div class="container mt-4">
+        <h1>Modifier l'article ou publier l'article {{ article.slug }}</h1>
 
-    <div class="container">
-        <h1>Editer l'article numéro {{ article.id }}</h1>
+        <a href="{{ url('back_articles_publish', {slug: article.slug}) }}" class="btn btn-success">
+            <i class="bi bi-send-plus-fill"></i>
+            Publier l'article !
+        </a>
 
-        {{ form_start(form) }}
+        <hr>
 
-        <label for="">Titre : </label>
-        {{ form_widget(form.title) }}
+        {% if app.request.attributes.get('_route') == 'back_articles_edit' %}
 
-        <label for="">Contenu : </label>
-        {{ form_widget(form.content) }}
+            <h2>Gestion des images</h2>
+            {% for image in article.images %}
+                <div>
+                    <img src="{{ asset('/uploads/'~image.name) }}" alt="{{ image.name }}" width="150">
 
-        <label for="">Categorie : </label>
-        {{ form_widget(form.categories) }}
+                    {# We add a link to delete an image (will be managed in Ajax in images.js) #}
 
-        <div class="row">
-            <div class="col-md-6">
-                {% if app.request.attributes.get('_route') == 'back_articles_edit' %}
-                    <hr>
-                    <h2>Gestion des images</h2>
-                    {% for image in article.images %}
-                        <div>
-                            <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="150">
+                    <a href="{{ path('back_articles_remove_image', {name: image.name})}}" data-delete data-token="{{ csrf_token('delete' ~image.name )}}">
+                        <i class="bi bi-file-earmark-x"></i>
+                        Supprimer
+                    </a>
 
-                            {# We add a link to delete an image (will be managed in Ajax in images.js) #}
-                            <a href="{{ path('back_articles_remove_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-
-            </div>
-
-            <div class="col-md-6">
-                <label for=""> Ajout d'image(s) <small>(max: 2MB)</small></label>
-                {{ form_widget(form.images) }}
-                <hr>
-                <label for=""> Ajout de lien de vidéo </label>
-                {{ form_widget(form.videourl) }}
-                <br>
-                <button type="submit" class="btn btn-info">Confirmer</button>
-            </div>
-                {{ form_rest(form) }}
-        </div>
-        {{ form_end(form) }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <br>
+        {% include 'back/includes/_article_form.html.twig' %}
     </div>
-
 {% endblock %}

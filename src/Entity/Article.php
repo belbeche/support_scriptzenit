@@ -76,13 +76,22 @@ class Article
     private $favoris;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean", options={"default": false})
      */
-    private $video_url;
+    private $isPublished;
+
+    /**
+     * @ORM\Column(type="datetime", nullable="true")
+     */
+    private $publishedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
         $this->active = true;
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
@@ -281,14 +290,39 @@ class Article
         return $this;
     }
 
-    public function getVideoUrl(): ?string
+    public function isIsPublished(): ?bool
     {
-        return $this->video_url;
+        return $this->isPublished;
     }
 
-    public function setVideoUrl(?string $video_url): self
+    public function setIsPublished(bool $isPublished): self
     {
-        $this->video_url = $video_url;
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getPublishedAt(): ?\DateTimeInterface
+    {
+        dump($this->publishedAt);
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(\DateTimeInterface $publishedAt): self
+    {
+        $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

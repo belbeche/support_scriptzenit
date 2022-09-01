@@ -9,11 +9,7 @@ use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,11 +42,12 @@ class ArticleType extends AbstractType
                     'class'         => Category::class,
                     'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('ca')
-                            ->orderBy('ca.name', 'ASC');
+                            ->orderBy('ca.name', 'DESC');
                     },
                     /*'expanded' => true,*/
                     'multiple'      => true,
                     'choice_label'   => 'name',
+                    'expanded' => false,
                     'required'    => false,
                 ]
             )
@@ -60,10 +57,6 @@ class ArticleType extends AbstractType
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false
-            ])
-            ->add('videourl', TextType::class,[
-                'label' => 'Lien video : ',
-                'required' => true,
             ])
         ;
     }

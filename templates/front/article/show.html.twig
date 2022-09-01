@@ -8,14 +8,15 @@
 			<div class="col-md-6">
 				<h1>{{ article.title }}</h1>
 				<br>
-				<p class="text-secondary">Par <a href="#"> {{ article.user.username }}</a>, le {{ article.createdAt|date('d-m-Y') }} à {{ article.createdAt|date('h:m:s') }}</p>
+				<p class="text-secondary">Par <a href="#"> {{ article.user.username }}</a>, le {{ article.createdAt|format_datetime('full', 'short', locale='fr') }}</p>
+
 				{% for image in article.images %}
 					<img src="{{ asset('uploads/' ~image.name) }}" alt="" class="img-fluid">
 				{% endfor %}
 				<p>
 					<small>
 						{% for category in article.categories %}
-							<a href="">{{ category.name }}</a>,
+							<a href="{{ category.name }}">{{ category.name }}</a>,
 						{% endfor %}
 					</small>
 				</p>
@@ -26,7 +27,13 @@
 			</div>
 			<div class="col-md-6">
 				<div>
-					<h3>UNDER CONSTRUCTION</h3>
+					{{ form_start(form) }}
+					{{ form_widget(form.content) }}
+					{{ form_rest(form) }}
+
+					<button type="submit" class="btn btn-primary">Laisser un commentaire !</button>
+
+					{{ form_end(form) }}
 				</div>
 			</div>
 		</div>
@@ -37,7 +44,7 @@
 			{# dump the data in twig #}
 			{#{{ dump(comment.user.username) }}#}
 			<p>
-				{{ comment.user.username }} à dit : {{ comment.content }}
+				{{ comment.user.username }} à dit : {{ comment.content|raw }}
 			</p>
 		{% else %}
 			<p>Pas de commentaires...</p>
