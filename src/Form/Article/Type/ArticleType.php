@@ -56,7 +56,10 @@ class ArticleType extends AbstractType
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Selections multiples possible'
+                ]
             ])
         ;
     }

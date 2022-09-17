@@ -132,6 +132,8 @@ class ArticleController extends AbstractController
 
             $article->setIsPublished(true);
 
+            $this->addFlash('success','Article publié avec succéss');
+
             $this->entityManager->persist($article);
             $this->entityManager->flush();
 
@@ -180,6 +182,8 @@ class ArticleController extends AbstractController
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
 
+            $article->setUpdatedAt(new \DateTime("NOW"));
+
             if($form->isSubmitted() && $form->isValid())
             {
                 $images = $form->get('images')->getData();
@@ -187,8 +191,6 @@ class ArticleController extends AbstractController
                 foreach($images as $image){
                     // We generate a new file name
                     $fichier = md5(uniqid()).'.'.$image->guessExtension();
-
-                    $article->setUpdatedAt(new \DateTime("NOW"));
 
                     // On copie le fichier dans le dossier uploads
                     $image->move(

@@ -35,11 +35,10 @@ class BackController extends AbstractController
             12
         );
 
-        $users = $entityManager->getRepository(User::class)->findAll();
+
 
         return $this->render('back/home.html.twig',[
-            'articles' => $articles,
-            'users' => $users,
+            'articles' => $articles
         ]);
     }
 }

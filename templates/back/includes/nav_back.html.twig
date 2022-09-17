@@ -16,6 +16,9 @@
             <li class="nav-item {{ app.request.get('_route') == 'back_home' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('back_home') }}">Articles</a>
             </li>
+            <li class="nav-item {{ app.request.get('_route') == 'back_users_list' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('back_users_list') }}">Utilisateurs</a>
+            </li>
             <li class="nav-item {{ app.request.get('_route') == 'back_categories_list' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('back_categories_list') }}">Catégories</a>
             </li>

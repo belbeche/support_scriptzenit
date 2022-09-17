@@ -2,11 +2,15 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Article;
+use App\Form\Model\SearchModel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -39,6 +43,28 @@ class ArticleRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @param SearchModel $searchModel
+     * @return array
+     */
+    public function findBySearch(SearchModel $searchModel)
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('a')
+            ->where('a.active = :active')
+            ->setParameter(':active', true);
+
+        if ($searchModel->getTerm()) {
+            $queryBuilder
+                ->andwhere('a.content LIKE :term or a.title LIKE :term')
+                ->setParameter(':term', '%' . $searchModel->getTerm() . '%');
+        }
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

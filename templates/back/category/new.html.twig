@@ -2,11 +2,16 @@
 
 {% block content %}
 
-    <h1>Page des categories</h1>
+    <div class="container">
+        <h1>Ajout d'une nouvelle categorie</h1>
 
-    {{ form_start(form) }}
-    <label for="">Titre de la categorie</label>
-    {{ form_widget(form.name) }}
-        <button type="submit">Soumettre</button>
-    {{ form_end(form) }}
+        <div class="form-group">
+            {{ form_start(form) }}
+            <label for="">Titre de la categorie</label>
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+
+            <button type="submit" class="btn btn-primary mt-4">Soumettre</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

@@ -3,39 +3,37 @@
 {% block title %} - {{ article.title }} - {% endblock %}
 
 {% block content %}
-	<article class="container mt-4">
-		<div class="row">
-			<div class="col-md-6">
-				<h1>{{ article.title }}</h1>
-				<br>
-				<p class="text-secondary">Par <a href="#"> {{ article.user.username }}</a>, le {{ article.createdAt|format_datetime('full', 'short', locale='fr') }}</p>
 
-				{% for image in article.images %}
-					<img src="{{ asset('uploads/' ~image.name) }}" alt="" class="img-fluid">
-				{% endfor %}
-				<p>
-					<small>
-						{% for category in article.categories %}
-							<a href="{{ category.name }}">{{ category.name }}</a>,
-						{% endfor %}
-					</small>
-				</p>
+	<div class="container">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{ url('front_home') }}">Accueil</a></li>
+				<li class="breadcrumb-item active" aria-current="page">{{ article.slug }}</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="container">
+		<!-- Your share button code -->
+		<div class="fb-share-button"
+			 data-href="https://www.facebook.com/DevHistory-102504155383966"
+			 data-layout="button_count">
+		</div>
+	</div>
 
-				<div class="mt-4">
-					{{ article.content|raw }}
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div>
-					{{ form_start(form) }}
-					{{ form_widget(form.content) }}
-					{{ form_rest(form) }}
 
-					<button type="submit" class="btn btn-primary">Laisser un commentaire !</button>
+	<article class="container mt-4 text-center">
+		<h1>{{ article.title }}</h1>
+		<br>
+		<p class="text-secondary">Par <img src="{{ asset('uploads/avatar' ~article.user.avatar) }}" alt="{{ article.user.username }}"> {{ article.user.username }} | le {{ article.createdAt|format_datetime('full', 'short', locale='fr') }} |  modifié le {{ article.updatedAt|format_datetime('full', 'short', locale='fr') }}</p>
 
-					{{ form_end(form) }}
-				</div>
-			</div>
+
+
+		{% for image in article.images %}
+			<img src="{{ asset('uploads/' ~image.name) }}" alt="{{ article.slug }}" class="img-fluid">
+		{% endfor %}
+
+		<div class="mt-4">
+			{{ article.content|raw }}
 		</div>
 
 		<h1>Commentaires </h1>
@@ -50,5 +48,17 @@
 			<p>Pas de commentaires...</p>
 		{% endfor %}
 
+		{% if app.user %}
+			<div class="form-group">
+				{{ form_start(form) }}
+				<label for="">Laisser un commentaire  en tant que {{ app.user.username }}</label>
+				{{ form_widget(form.content) }}
+				{{ form_rest(form) }}
+
+				<button type="submit" class="btn btn-primary">Laisser un commentaire !</button>
+
+				{{ form_end(form) }}
+			</div>
+		{% endif %}
 	</article>
 {% endblock %}

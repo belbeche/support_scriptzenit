@@ -19,6 +19,7 @@ class CommentType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Contenu du commentaire',
+                    'class' => 'form-control',
                 ],
             ])
         ;

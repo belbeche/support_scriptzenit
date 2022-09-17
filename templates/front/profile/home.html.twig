@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>{% if app.user %} Bienvenue {{ app.user.username }} {% endif %}</h1>
+
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.avatar, 'Image à la une') }}
+            {{ form_widget(form.avatar, {'attr': {'class': 'form-control-file'}}) }}
+        </div>
+
+        {{ form_rest(form) }}
+
+        <button type="submit" class="btn btn-success">Mettre à jour</button>
+
+        {{ form_end(form) }}
+    </div>
+
+
+{% endblock %}

@@ -5,14 +5,19 @@
 
         <div class="card">
             {% for image in article.images %}
-                <img src="{{ asset('uploads/' ~ image.name) }}" alt="{{ article.title }}" width="150">
+                <img src="{{ asset('uploads/' ~ image.name) }}" alt="{{ article.title }}" class="img-fluid">
             {% endfor %}
         </div>
 
-        <h1>{{ article.slug }}</h1>
-        <p>
-            {{ article.content|raw }}
-        </p>
+        <h1>{{ article.slug }}</h1><br>
+        <p>Par {{ article.user.username }}</p>
+
+        <pre>
+            <code>
+                {{ article.content|raw }}
+            </code>
+        </pre>
+
         <p>
             Crée le : {{ article.createdAt|format_datetime('full', 'short', locale='fr') }}
         </p>

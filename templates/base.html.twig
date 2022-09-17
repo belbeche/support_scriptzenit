@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<meta content="" name="keywords">
 		<meta content="" name="description">
 		<title>
@@ -22,35 +21,49 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 		<!-- Icon Font Stylesheet -->
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
 
 		<!-- Libraries Stylesheet -->
 		<link rel="stylesheet" href="{{ asset('src/css/animate.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('src/css/owl.carousel.css') }}">
 
+		<!-- Ayro stylesheet -->
+		<link rel="stylesheet" href="{{ asset('src/css/ayro/starter.css') }}">
+		<link rel="stylesheet" href="{{ asset('src/css/ayro/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('src/css/ayro/glightbox.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('src/css/ayro/lineicons.css') }}">
+		<link rel="stylesheet" href="{{ asset('src/css/ayro/loading-bar.min.css') }}">
+
+		<link rel="stylesheet" href="{{ asset('src/css/ayro/tiny-slider.css') }}">
+
 		<!-- Customized Bootstrap Stylesheet -->
 		{#<link rel="stylesheet" href="{{ asset('src/css/bootstrap.min.css') }}">#}
+
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-		{#<link rel="stylesheet" href="https://bootswatch.com/5/superhero/bootstrap.min.css">#}
-		{#<link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.min.css">#}
-		{#<link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">#}
 {#
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 #}
-
-		<!-- Template Stylesheet -->
 
 
 		{#<link rel="stylesheet" href="{{ asset('src/css/app.css') }}">#}
 		{#<link rel="stylesheet" href="{{ asset('src/css/card.css') }}">#}
 
+		<link rel="stylesheet" href="{{ asset('src/css/app.css') }}">
+		<link rel="stylesheet" href="{{ asset('src/css/responsive.css') }}">
+		<link rel="stylesheet" href="{{ asset('src/css/card.css') }}">
+		<link rel="stylesheet" href="{{ asset('src/css/navbar.css') }}">
+		<link rel="stylesheet" href="{{ asset('src/css/banner_home.css') }}">
 		<link rel="stylesheet" href="{{ asset('src/css/footer.css') }}">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
+
+		{#<link rel="stylesheet" href="{{ asset('src/css/blog.css') }}">#}
 		{% block stylesheets %}
 			{#{{ encore_entry_link_tags('app') }}#}
-			<link rel="stylesheet" href="{{ asset('src/css/responsive.css') }}">
 		{% endblock %}
 	</head>
 	<body>
@@ -67,7 +80,6 @@
 			{% block nav %}
 				{% include 'front/includes/nav.html.twig' %}
 			{% endblock %}
-			<div class="container">
 				{% block content %}
 					{#{% for type, messages in app.flashes %}
 						{% for message in messages %}
@@ -75,7 +87,6 @@
 						{% endfor %}
 					{% endfor %}#}
 				{% endblock %}
-			</div>
 		{% endblock %}
 
 		<!-- Back to Top -->
@@ -102,7 +113,7 @@
 
 						<div class="col-lg-4">
 							<h4>A propos de moi</h4>
-							<p>Lorem Ipsum ist einfach Dummy-Text der Druck- und Satzindustrie. Lorem Ipsum war der Standard der Branche Lorem Ipsum ist einfach Dummy-Text der Druck- und Satzindustrie. Lorem Ipsum war der Standard der Branche  </p>
+							<p>Mon parcours complété par ma passion pour internet et l'informatique, m'a permis d'acquérir les connaissances techniques et pratiques indispensables à l'exercice de ce métier. Je désire confirmer mes compétences en création et développement de logiciels et sites web avec les différentes technologies existante.</p>
 						</div>
 
 						<div class="col-md-4">
@@ -117,9 +128,10 @@
 						<div class="col-md-4">
 							<h4>Suivez-moi</h4>
 							<ul class="social-icon">
-								<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								<li><a href="https://github.com/belbeche"><i class="fa fa-github"></i></a>
+								<li><a href="https://www.youtube.com/user/DayzerMC"><i class="fa fa-youtube"></i></a></li>
+								<li><a href="https://www.facebook.com/waloup.elyana.5?ref=bookmarks"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="https://www.linkedin.com/in/walid-belbeche/"><i class="fa fa-linkedin"></i></a></li></li>
 							</ul>
 						</div>
 
@@ -130,7 +142,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-12">
-							<p class="copyright text-uppercase text-center">Copyright © Walid BELBECHE 2022
+							<p class="copyright text-uppercase text-center text-white">Copyright © Walid BELBECHE 2022
 							</p>
 						</div>
 					</div>
@@ -146,14 +158,77 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+		<!--====== Bootstrap js ======-->
+{#
+		<script src="https://cdn.ayroui.com/1.0/js/bootstrap.bundle.min.js"></script>
+#}
+
 		{#{{ encore_entry_script_tags('app') }}#}
 		<script src="{{ asset('src/js/wow.min.js') }}"></script>
 		<script src="{{ asset('src/js/easing.min.js') }}"></script>
 		<script src="{{ asset('src/js/waypoints.min.js') }}"></script>
 		<script src="{{ asset('src/js/owl.carousel.min.js') }}"></script>
 
-		<!-- Template Javascript -->
+		<!-- Ayro javascript -->
 
+
+		<script src="{{ asset('src/js/ayro/bootstrap.bundle.min.js') }}"></script>
+
+		<script src="{{ asset('src/js/ayro/count-up.min.js') }}"></script>
+		<script src="{{ asset('src/js/ayro/glightbox.min.js') }}"></script>
+		<script src="{{ asset('src/js/ayro/loading-bar.min.js') }}"></script>
+		<script src="{{ asset('src/js/ayro/main.js') }}"></script>
+		<script src="{{ asset('src/js/ayro/tiny-slider.js') }}"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+		{#<script src="https://cdn.tailwindcss.com"></script>#}
+
+		<!-- Template Javascript -->
+		<script>
+			//===== close navbar-collapse when a  clicked
+			let navbarTogglerSeven = document.querySelector(
+					".navbar-seven .navbar-toggler"
+			);
+			navbarTogglerSeven.addEventListener("click", function () {
+				navbarTogglerSeven.classList.toggle("active");
+			});
+		</script>
+
+		<!-- Load Facebook SDK for JavaScript -->
+		<div id="fb-root"></div>
+		<script>
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+
+		<script>
+			search_results = function() {
+				let urlSearch = $('#js-url-search').data('urlSearch');
+				$("#pop").popover({placement:'bottom', trigger:'hover'});
+				$(".loading").hide();
+				$("#form_search").submit(function(){
+					$(".loading").show();
+					let keyword = $("#search_form_keyword").val();
+					let DATA = 'recherche=' + keyword;
+					$.ajax({
+						type: "POST",
+						url: urlSearch,
+						data: DATA,
+						cache: false,
+						success: function(data){
+							$('#search_results').html(data);
+							$(".loading").hide();
+						}
+					});
+					return false;
+				});
+			}
+		</script>
 
 		{% block javascripts %}
 			{#{{ encore_entry_script_tags('app') }}#}

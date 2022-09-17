@@ -6,11 +6,12 @@
 
         <h1 class="mb-4">Commentaires</h1>
 
-        <table class="table">
+        <table class="table table-responsive">
             <thead class="thead-dark">
             <tr>
                 <th>#</th>
                 <th>Titre du commentaire</th>
+                <th>Autheur</th>
                 <th>Etat</th>
                 <th>Actions</th>
             </tr>
@@ -20,6 +21,11 @@
                 <tr>
                     <td>{{ comment.id }}</td>
                     <td>{{ comment.content }}</td>
+                    <td>
+                        {% for user in comment.user %}
+                            {{ user }}
+                        {% endfor %}
+                    </td>
                     <td>
                         {% if comment.active == true %}
                             Activé
