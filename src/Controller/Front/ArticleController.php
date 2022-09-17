@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -141,7 +142,7 @@ class ArticleController extends AbstractController
     public function addFavoris(Article $article,EntityManagerInterface $entityManager)
     {
         if(!$article){
-            throw new NotFoundHttpException('Pas d\'annonce trouvée');
+            throw new NotFoundHttpException('Pas d\'article trouvé');
         }
 
         $article->addFavori($this->getUser());
@@ -149,7 +150,11 @@ class ArticleController extends AbstractController
         $entityManager->persist($article);
         $entityManager->flush();
 
-        return $this->redirectToRoute('front_home');
+        return new JsonResponse([
+            'success' => 'Ok',
+            'article' => $article,
+
+        ], 200);
     }
 
     /**
