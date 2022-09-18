@@ -109,10 +109,10 @@
 										{% endif %}
 									{% endfor %}
 									{% if isFavorite %}
-										<button type="button" data-id="{{ article.id }}"><i class="bi bi-hand-thumbs-up-fill"></i>
+										<button class="btn-favorite" type="button" data-href="{{ url('front_remove_favoris', {id: article.id}) }}" data-id="{{ article.id }}"><i class="bi bi-hand-thumbs-up-fill"></i>
 											</button>
 									{% else %}
-										<button type="button" data-id="{{ article.id }}"><i class="bi bi-hand-thumbs-up"></i>
+										<button class="btn-favorite" type="button" data-href="{{ url('front_add_favoris', {id: article.id}) }}" data-id="{{ article.id }}"><i class="bi bi-hand-thumbs-up"></i>
 										</button>
 									{% endif %}
 
