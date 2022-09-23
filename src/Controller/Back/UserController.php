@@ -4,6 +4,7 @@ namespace App\Controller\Back;
 
 use App\Entity\User;
 
+use App\Form\User\Type\UserFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,6 +45,66 @@ class UserController extends AbstractController
 
         return $this->render('back/user/list.html.twig', [
             'users' => $users,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/modification/utilisateur", name="back_users_edit")
+     * @param User $user
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function edit(User $user,EntityManagerInterface $entityManager,Request $request): Response
+    {
+        $form = $this->createForm(UserFormType::class, $user);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            $user->setIsVerified(true);
+
+            if($form->isSubmitted())
+            {
+                $images = $form->get('avatar')->getData();
+
+                if($form->get('avatar')->getData() !== null){
+                    foreach($images as $image){
+
+                        // We generate a new file name
+                        $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                        // We copy the file in the uploads folder
+
+                        $image->move(
+                            $this->getParameter('profile_directory'),
+                            $fichier
+                        );
+
+                        // Create the image in the database
+                        $usr = new User();
+                        $usr->setAvatar($fichier);
+                        $usr->setRoles($form->get('roles')->getData());
+
+                        return $this->redirectToRoute('back_users_list');
+                    }
+                } else{
+                    echo "<p> Aucune données </p>";
+                }
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('back_users_list', [
+                'username' => $user->getUsername(),
+            ]);
+        }
+
+        return $this->render('back/user/edit.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 }

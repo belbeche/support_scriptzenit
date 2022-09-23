@@ -31,7 +31,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('roles', ChoiceType::class, [
+            /*->add('roles', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
@@ -39,7 +39,7 @@ class RegistrationFormType extends AbstractType
                     'Utilisateur' => 'ROLE_USER',
                     'Administrateur' => 'ROLE_ADMIN'
                 ],
-            ])
+            ])*/
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -60,7 +60,7 @@ class RegistrationFormType extends AbstractType
         ;
 
         // Data transformer
-        $builder->get('roles')
+        /*$builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
                 function ($rolesArray) {
                     // transform the array to a string
@@ -70,7 +70,7 @@ class RegistrationFormType extends AbstractType
                     // transform the string back to an array
                     return [$rolesString];
                 }
-            ));
+            ));*/
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -35,6 +35,9 @@ class UserFormType extends AbstractType
                         'Editeur' => 'ROLE_MODO',
                     ],
                 ],
+                'attr' => [
+                    'class' => 'selectpicker'
+                ],
             ])
             ->add('avatar', FileType::class, [
                 'label' => 'Parcourir',

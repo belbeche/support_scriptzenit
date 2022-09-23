@@ -30,7 +30,7 @@
     </section>
 
     <!-- div hero header -->
-    <div id="hero">
+    <div>
         <div class="container pt-xxl-5">
             {{ render(controller('App\\Controller\\Front\\FrontController::search')) }}
         </div>
@@ -41,38 +41,13 @@
     <div class="section-title-four pt-5">
         <div class="container">
             <div class="content">
-                <h2 class="fw-bold">Nos dernières nouvelles</h2>
+                <h2 class="fw-bold">Recherche</h2>
                 <h3 class="gray-bg">Blog</h3>
-                <p>
-                    There are many variations of passages of Lorem Ipsum available,
-                    but the majority have suffered alteration in some form.
-                </p>
             </div>
         </div>
     </div>
     <!-- container -->
     <!--====== End Section Title Four ======-->
-
-    {#<div class="container mt-4">
-		<div class="relative container mx-auto px-4 pb-16 xl:pb-24 xl:pt-14">
-			<p class="text-4xl font-bold text-shadow mb-2 xl:text-6xl">Apprendre le développement</p>
-			<p class="text-3xl font-bold text-shadow xl:text-4xl">facilement et simplement</p>
-			<div class="mt-12">
-				<a href="/inscription"
-				   title="Ouvrir un compte" aria-label="Ouvrir un compte"
-				   class="btn btn-gradient-red py-3"
-				>
-					Rejoins-nous !
-				</a>
-				<a href="/connexion"
-				   title="Se connecter" aria-label="Se connecter"
-				   class="btn btn-green py-3 ml-4 xl:hidden"
-				>
-					Connexion
-				</a>
-			</div>
-		</div>
-	</div>#}
 
     <!-- blog start -->
     <section class="blog-area pb-5">
@@ -91,7 +66,7 @@
                             <div class="blog-content">
                                 <h5 class="blog-title">
                                     <a href="{{ path('front_articles_show', {'slug': article.slug}) }}">
-                                        <h5 class="card-title">{{ article.title }}</h5>
+                                        <h5 class="card-title marker">{{ article.title }}</h5>
                                     </a>
                                 </h5>
                                 <br>

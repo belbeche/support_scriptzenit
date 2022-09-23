@@ -179,6 +179,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/serialization" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/process" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/intl-extra" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/uid" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -190,5 +192,6 @@
     <orderEntry type="library" name="popper.js" level="application" />
     <orderEntry type="library" name="jquery-3.2.1.slim" level="application" />
     <orderEntry type="library" name="bootstrap.bundle" level="application" />
+    <orderEntry type="library" name="jquery-3.6.1" level="application" />
   </component>
 </module>

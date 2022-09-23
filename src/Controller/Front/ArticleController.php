@@ -151,7 +151,7 @@ class ArticleController extends AbstractController
         $entityManager->flush();
 
         return new JsonResponse([
-            'success' => 'Ok',
+            'success' => 'added',
             'article' => $article,
 
         ], 200);
@@ -171,6 +171,10 @@ class ArticleController extends AbstractController
         $entityManager->persist($article);
         $entityManager->flush();
 
-        return $this->redirectToRoute('front_home');
+        return new JsonResponse([
+            'success' => 'removed',
+            'article' => $article,
+
+        ], 200);
     }
 }
