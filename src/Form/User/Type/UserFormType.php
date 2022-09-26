@@ -39,12 +39,12 @@ class UserFormType extends AbstractType
                     'class' => 'selectpicker'
                 ],
             ])
+            // image field not linked to the database, mapped false
             ->add('avatar', FileType::class, [
                 'label' => 'Parcourir',
                 'multiple' => false,
-                'required' => false,
-                'data_class' => null,
-
+                'mapped' => false,
+                'required' => true
             ])
             /*->add('favoris')*/
             /*->add('user_roles')*/
