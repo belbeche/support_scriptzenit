@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="container p-xxl-5">
+        <h1>page de categorie : {{ categorie.name }}</h1>
+        {% for article in articles %}
+            {{ article.slug }}
+            {% for categorie in article.categories %}
+                {{ categorie.name }}
+            {% endfor %}
+            {{ article.content|raw }}
+        {% endfor %}
+
+    </div>
+
+
+{% endblock %}

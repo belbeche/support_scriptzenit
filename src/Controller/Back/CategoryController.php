@@ -120,11 +120,14 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @param EntityManagerInterface $entityManager
-     * @Route("/remove/{id}", name="back_categories_remove")
+     * @Route("/back/categories/remove/{id}", name="back_categories_remove")
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function remove(EntityManagerInterface $entityManager)
+    public function remove(Category $category,EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\RedirectResponse
     {
+        $entityManager->remove($category);
+        $entityManager->flush();
 
+        return $this->redirectToRoute('back_categories_list');
     }
 }

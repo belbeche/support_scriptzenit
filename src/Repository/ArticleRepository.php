@@ -67,6 +67,20 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByCategoryName($categoryName)
+    {
+        return $this
+            ->createQueryBuilder('a')
+            ->innerJoin('a.categories', 'ca')
+            ->where('ca.name = :categoryName')
+            /*->andWhere('a.active = :active')*/
+            /*->orderBy('a.date', 'DESC')*/
+            ->setParameter(':categoryName', $categoryName)
+            /*->setParameter(':active', true)*/
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

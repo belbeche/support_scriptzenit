@@ -99,10 +99,13 @@ class FrontController extends AbstractController
      */
     public function Categories(Category $category,EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
-        $categorie = $entityManager->getRepository(Category::class)->find($category);
+        $category = $entityManager->getRepository(Category::class)->find($category);
 
-        return $this->render('front/categories/home.html.twig', [
-            'categorie' => $categorie,
+        $articles = $entityManager->getRepository(Article::class)->findByCategoryName($category->getName());
+
+        return $this->render('front/category/home.html.twig', [
+            'categorie' => $category,
+            'articles' => $articles,
         ]);
     }
 }
