@@ -59,6 +59,7 @@ class UserController extends AbstractController
      */
     public function edit(User $user, EntityManagerInterface $entityManager, Request $request): Response
     {
+
         $form = $this->createForm(UserFormType::class, $user);
 
         if ($request->isMethod('POST')) {
@@ -71,26 +72,24 @@ class UserController extends AbstractController
                 $images = $form->get('avatar')->getData();
 
                 if($images){
-                    foreach ($images as $image) {
 
-                        // We generate a new file name
-                        $file = md5(uniqid()) . '.' . $image->guessExtension();
+                    // We generate a new file name
+                    $file = md5(uniqid()) . '.' . $images->guessExtension();
 
-                        // We copy the file in the uploads folder
-                        $image->move(
-                            $this->getParameter('profile_directory'),
-                            $file
-                        );
+                    // We copy the file in the uploads folder
+                    $images->move(
+                        $this->getParameter('profile_directory'),
+                        $file
+                    );
 
-                        // Create the image in the database
-                        $usr = new User();
-                        $usr->setAvatar($file);
-                        $usr->setRoles($form->get('roles')->getData());
-                    }
+                    // Create the image in the database
+
+                    $user->setAvatar($file);
+                    $user->setRoles($form->get('roles')->getData());
+
+                    $entityManager->persist($user);
+                    $entityManager->flush();
                 }
-
-                $entityManager->persist($user);
-                $entityManager->flush();
 
                 $this->addFlash('success','L\'utilisateur '. $user->getUsername() .' a été modifié avec succès. ');
 

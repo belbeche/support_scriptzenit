@@ -31,7 +31,7 @@
 		<h1>{{ article.title }}</h1>
 		<br>
 		<p class="text-secondary">Par
-			<img src="{{ asset('uploads/avatar' ~article.user.avatar) }}" alt="{{ article.user.username }}">
+			<img src="{{ asset('uploads/avatar/' ~article.user.avatar) }}" alt="{{ article.user.username }}" class="rounded-0 img-thumbnail" width="50" height="50">
 			{{ article.user.username }}
 			| le
 			{{ article.createdAt|format_datetime('full', 'short', locale='fr') }}

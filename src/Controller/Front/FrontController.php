@@ -4,6 +4,7 @@ namespace App\Controller\Front;
 
 use App\Data\SearchData;
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Form\Model\SearchModel;
 use App\Form\Search\SearchType;
 use App\Repository\ArticleRepository;
@@ -30,6 +31,8 @@ class FrontController extends AbstractController
             10
         );
 
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
         /*$articles = $articleRepository->findSearch($search,$paginator);*/
 
         /*if($request->isMethod('POST'))
@@ -47,6 +50,7 @@ class FrontController extends AbstractController
 
         return $this->render('front/home.html.twig', [
             'articles' => $articles,
+            'categories' => $categories,
         ]);
     }
 
@@ -71,8 +75,13 @@ class FrontController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $articles = $entityManager->getRepository(Article::class)->findBySearch($searchModel);
+                $data = $entityManager->getRepository(Article::class)->findBySearch($searchModel);
 
+                $articles = $paginator->paginate(
+                    $data,
+                    $request->query->getInt('page',1),
+                    10
+                );
                 return $this->render('front/result.html.twig', [
                         'articles' => $articles,
                 ]);
@@ -81,6 +90,19 @@ class FrontController extends AbstractController
 
         return $this->render('front/includes/search.html.twig', [
                 'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/blog/categorie/{name}", name="front_category")
+     * @return Response
+     */
+    public function Categories(Category $category,EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
+    {
+        $categorie = $entityManager->getRepository(Category::class)->find($category);
+
+        return $this->render('front/categories/home.html.twig', [
+            'categorie' => $categorie,
         ]);
     }
 }
