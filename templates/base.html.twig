@@ -30,13 +30,13 @@
 		<link rel="stylesheet" href="{{ asset('src/css/owl.carousel.css') }}">
 
 		<!-- Ayro stylesheet -->
-		<link rel="stylesheet" href="{{ asset('src/css/ayro/starter.css') }}">
+		{#<link rel="stylesheet" href="{{ asset('src/css/ayro/starter.css') }}">
 		<link rel="stylesheet" href="{{ asset('src/css/ayro/bootstrap.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('src/css/ayro/glightbox.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('src/css/ayro/lineicons.css') }}">
-		<link rel="stylesheet" href="{{ asset('src/css/ayro/loading-bar.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('src/css/ayro/loading-bar.min.css') }}">#}
 
-		<link rel="stylesheet" href="{{ asset('src/css/ayro/tiny-slider.css') }}">
+		{#<link rel="stylesheet" href="{{ asset('src/css/ayro/tiny-slider.css') }}">#}
 
 		<!-- Customized Bootstrap Stylesheet -->
 		{#<link rel="stylesheet" href="{{ asset('src/css/bootstrap.min.css') }}">#}
@@ -85,29 +85,23 @@
 			{% block nav %}
 				{% include 'front/includes/nav.html.twig' %}
 			{% endblock %}
-				{% block content %}
-					{#{% for type, messages in app.flashes %}
-						{% for message in messages %}
-							<div class="alert alert-{{ type }}">{{ message }}</div>
-						{% endfor %}
-					{% endfor %}#}
-				{% endblock %}
+			{% block content %}
+			{% endblock %}
 		{% endblock %}
 
 		<!-- Back to Top -->
 		{#<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>#}
 
 		<!-- Footer -->
-		<br>
 		<footer>
 			<div class="footer-top">
 				<div class="container">
 					{#<div class="footer-day-time">
 						<div class="row">
-							<div class="col-md-8">
-								<h3>Codeur COM BLOG</h3>
+							<div class="col-md-4">
+								<h3>devBlog</h3>
 							</div>
-							<div class="col-lg-4">
+							<div class="col-lg-8">
 								<div class="phone-no">
 									<a href="tel:0762972691"><i class="fa fa-mobile" aria-hidden="true"></i>Appelez-moi 07 62 97 26 91</a>
 								</div>

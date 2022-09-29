@@ -44,11 +44,12 @@
 		{% endfor %}
 
 		<div class="mt-4">
-			{{ article.content|raw }}
+			<pre>
+				{{ article.content|raw }}
+			</pre>
 		</div>
 
-		<h1>Commentaires
-		</h1>
+		<h1>Commentaires</h1>
 
 		{% for comment in comments %}
 			{# dump the data in twig #}

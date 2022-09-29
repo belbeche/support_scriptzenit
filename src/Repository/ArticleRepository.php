@@ -73,9 +73,22 @@ class ArticleRepository extends ServiceEntityRepository
             ->createQueryBuilder('a')
             ->innerJoin('a.categories', 'ca')
             ->where('ca.name = :categoryName')
-            /*->andWhere('a.active = :active')*/
-            /*->orderBy('a.date', 'DESC')*/
+            ->andWhere('a.active = :active')
+            ->orderBy('a.createdAt', 'DESC')
             ->setParameter(':categoryName', $categoryName)
+            ->setParameter(':active', true)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByFavorites($myFavorites)
+    {
+        return $this
+            ->createQueryBuilder('f')
+            ->where('f.favoris = :favoris')
+            /*->andWhere('f.active = :active')*/
+            /*->orderBy('f.createdAt', 'DESC')*/
+            ->setParameter(':favoris', $myFavorites)
             /*->setParameter(':active', true)*/
             ->getQuery()
             ->getResult();

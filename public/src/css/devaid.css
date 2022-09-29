@@ -222,7 +222,7 @@ pre code {
     background: #e9ecef;
     color: #fff;
     padding-top: 200px;
-    min-height: 680px;
+    height: 100vh;
 }
 
 .promo .title {

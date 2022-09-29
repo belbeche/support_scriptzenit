@@ -86,8 +86,8 @@ body{
 }
 
 #hero{
-    background-image:url(../images/banner4.jpg);
-    min-height:400px;
+    /*background-image:url(../images/hero.jpg);*/
+    /*min-height:100vh;*/
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;

@@ -5,6 +5,7 @@
 
     <!-- Start header Area -->
     <section class="header-area header-twelve">
+        {#<h1>Résultats de la recherche pour {{ term }}</h1>#}
         {% for type, messages in app.flashes %}
             {% for message in messages %}
                 <div class="alert alert-{{ type }}">{{ message }}</div>
@@ -29,7 +30,7 @@
 {% endif %}#}
     </section>
 
-    <!-- ******PROMO****** -->
+    <!-- Blog start -->
     <section id="promo" class="section offset-header">
         <div class="container text-center">
             <h2 class="title">dev<span class="highlight">Blog</span></h2>

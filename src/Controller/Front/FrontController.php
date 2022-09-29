@@ -5,6 +5,7 @@ namespace App\Controller\Front;
 use App\Data\SearchData;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\User;
 use App\Form\Model\SearchModel;
 use App\Form\Search\SearchType;
 use App\Repository\ArticleRepository;
@@ -49,6 +50,49 @@ class FrontController extends AbstractController
         }*/
 
         return $this->render('front/home.html.twig', [
+            'articles' => $articles,
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * @Route("/mes-favoris/{id}", name="front_favorites" , requirements={"id":"\d+"})
+     * @param Article $article
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @param ArticleRepository $articleRepository
+     * @return Response
+     */
+    public function favorite(User $user,EntityManagerInterface $entityManager, Request $request,PaginatorInterface $paginator,ArticleRepository $articleRepository)
+    {
+        $articles = $entityManager->getRepository(User::class)->findArticlesByFavorites();
+
+        /* = $paginator->paginate(
+            $data,
+            $request->query->getInt('page',1),
+            10
+        );*/
+
+
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
+        /*$articles = $articleRepository->findSearch($search,$paginator);*/
+
+        /*if($request->isMethod('POST'))
+        {
+            if($formSearch->isSubmitted() && $formSearch->isValid())
+            {
+                $entityManager->persist($users);
+                $entityManager->persist($search);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Merci de votre inscription ! Vous serez informé sous peu de nos dernières actualités.');
+                return $this->redirectToRoute('front_home');
+            }
+        }*/
+
+        return $this->render('front/favorites/show.html.twig', [
             'articles' => $articles,
             'categories' => $categories,
         ]);
