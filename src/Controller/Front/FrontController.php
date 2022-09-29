@@ -57,44 +57,15 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/mes-favoris/{id}", name="front_favorites" , requirements={"id":"\d+"})
-     * @param Article $article
      * @param EntityManagerInterface $entityManager
-     * @param Request $request
-     * @param PaginatorInterface $paginator
-     * @param ArticleRepository $articleRepository
      * @return Response
      */
-    public function favorite(User $user,EntityManagerInterface $entityManager, Request $request,PaginatorInterface $paginator,ArticleRepository $articleRepository)
+    public function favorite(EntityManagerInterface $entityManager)
     {
-        $articles = $entityManager->getRepository(User::class)->findArticlesByFavorites();
-
-        /* = $paginator->paginate(
-            $data,
-            $request->query->getInt('page',1),
-            10
-        );*/
-
-
-        $categories = $entityManager->getRepository(Category::class)->findAll();
-
-        /*$articles = $articleRepository->findSearch($search,$paginator);*/
-
-        /*if($request->isMethod('POST'))
-        {
-            if($formSearch->isSubmitted() && $formSearch->isValid())
-            {
-                $entityManager->persist($users);
-                $entityManager->persist($search);
-                $entityManager->flush();
-
-                $this->addFlash('success', 'Merci de votre inscription ! Vous serez informé sous peu de nos dernières actualités.');
-                return $this->redirectToRoute('front_home');
-            }
-        }*/
+        $favorites = $this->getUser()->getFavoris();
 
         return $this->render('front/favorites/show.html.twig', [
-            'articles' => $articles,
-            'categories' => $categories,
+            'favorites' => $favorites,
         ]);
     }
 

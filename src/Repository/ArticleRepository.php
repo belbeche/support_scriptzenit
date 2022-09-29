@@ -81,19 +81,6 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByFavorites($myFavorites)
-    {
-        return $this
-            ->createQueryBuilder('f')
-            ->where('f.favoris = :favoris')
-            /*->andWhere('f.active = :active')*/
-            /*->orderBy('f.createdAt', 'DESC')*/
-            ->setParameter(':favoris', $myFavorites)
-            /*->setParameter(':active', true)*/
-            ->getQuery()
-            ->getResult();
-    }
-
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */
