@@ -41,9 +41,15 @@ class Comment
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
         $this->active = true;
+        $this->createdAt = new \DateTime("NOW");
     }
 
 
@@ -103,6 +109,18 @@ class Comment
     public function setUser($user)
     {
         $this->user = $user;
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
         return $this;
     }
 }

@@ -156,10 +156,11 @@ class ArticleController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      */
     public function show(
-        Article $article
+        Article $article,
+        EntityManagerInterface $entityManager
     ): Response
     {
-        $article = $this->entityManager->getRepository(Article::class)->find($article);
+        $article = $entityManager->getRepository(Article::class)->find($article);
 
         return $this->render('back/article/show.html.twig', [
             'article' => $article

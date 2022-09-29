@@ -14,18 +14,16 @@
 				<li class="breadcrumb-item">
 					<a href="{{ url('front_home') }}">Accueil</a>
 				</li>
-				<li class="breadcrumb-item active" aria-current="page">{{ article.slug }}</li>
+				<li class="breadcrumb-item active" aria-current="page">{{ article.slug }}
+					{% if article.isPublished %}
+						<small class="badge badge-success">Article publier</small>
+					{% else %}
+						<small class="badge badge-warning">Article en attente de relecture</small>
+					{% endif %}
+				</li>
 			</ol>
 		</nav>
 	</div>
-	<div class="container">
-		{% if article.isPublished %}
-			<small class="badge badge-success">Article publier</small>
-		{% else %}
-			<small class="badge badge-warning">Article en attente de relecture</small>
-		{% endif %}
-	</div>
-
 
 	<article class="container mt-4 text-center">
 		<h1>{{ article.title }}</h1>
@@ -54,11 +52,13 @@
 		{% for comment in comments %}
 			{# dump the data in twig #}
 			{#{{ dump(comment.user.username) }}#}
-				<p>
-				{{ comment.user.username }}
-				à dit :
-			{{ comment.content|raw }}
-			</p>
+
+			<!-- the comments -->
+			<h3><i class="fa fa-comment"></i> {{ comment.user.username }} :
+				<small>{{ comment.createdAt|format_datetime('short', 'short' , locale="fr") }}</small>
+			</h3>
+			<p>{{ comment.content|raw }}</p>
+
 		{% else %}
 			<p>Pas de commentaires...</p>
 		{% endfor %}

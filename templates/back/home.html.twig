@@ -39,7 +39,7 @@
 								<tr>
 									<th scope="row">{{ i }}</th>
 									<td>
-										<a href="{{ url('back_articles_show', {'slug': article.slug}) }}">{{ article.title }}</a>
+										<a href="{{ url('back_articles_show', {slug: article.slug}) }}">{{ article.title }}</a>
 									</td>
 									<td>
 										{% if article.isPublished %}

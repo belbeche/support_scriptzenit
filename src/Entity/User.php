@@ -74,11 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $avatar;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Image::class, mappedBy="avatar", cascade={"persist", "remove"})
-     */
-    private $image;
-
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -285,28 +280,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
-
-    public function setImage(?Image $image): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($image === null && $this->image !== null) {
-            $this->image->setAvatar(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($image !== null && $image->getAvatar() !== $this) {
-            $image->setAvatar($this);
-        }
-
-        $this->image = $image;
 
         return $this;
     }

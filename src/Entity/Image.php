@@ -28,11 +28,6 @@ class Image
      */
     private $article;
 
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="image", cascade={"persist", "remove"})
-     */
-    private $avatar;
-
     public function getId(): ?int
     {
         return $this->id;

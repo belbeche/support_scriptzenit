@@ -53,8 +53,8 @@ class ArticleRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this
             ->createQueryBuilder('a')
-            ->where('a.active = :active')
-            ->setParameter(':active', true);
+            ->where('a.isPublished = :isPublished')
+            ->setParameter(':isPublished', true);
 
         if ($searchModel->getTerm()) {
             $queryBuilder
