@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}- Inscription -{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block content %}
 
@@ -43,15 +43,15 @@
         {{ form_widget(registrationForm.email) }}
         <label for="">Mot de passe</label>
         {{ form_widget(registrationForm.plainPassword) }}
-        <label for="">Role</label>
-        {{ form_widget(registrationForm.roles, {'attr' : {'class': 'selectpicker'}}) }}
+        {#<label for="">Role</label>
+        {{ form_widget(registrationForm.roles, {'attr' : {'class': 'selectpicker'}}) }}#}
         <br>
         {{ form_widget(registrationForm.agreeTerms) }}
 
         {{ form_rest(registrationForm) }}
 
 
-        <button type="submit" class="btn btn-outline-success">Je valide</button>
+        <button type="submit" class="btn btn-outline-success">Je valide mon inscription</button>
         {{ form_end(registrationForm) }}
         {% endif %}
     </div>

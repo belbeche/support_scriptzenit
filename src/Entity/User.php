@@ -70,11 +70,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $favoris;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Roles::class, mappedBy="user_roles")
-     */
-    private $user_roles;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar;
@@ -89,7 +84,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->favoris = new ArrayCollection();
-        $this->user_roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -278,33 +272,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->favoris->removeElement($favori)) {
             $favori->removeFavori($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Roles>
-     */
-    public function getUserRoles(): Collection
-    {
-        return $this->user_roles;
-    }
-
-    public function addUserRole(Roles $userRole): self
-    {
-        if (!$this->user_roles->contains($userRole)) {
-            $this->user_roles[] = $userRole;
-            $userRole->addUserRole($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserRole(Roles $userRole): self
-    {
-        if ($this->user_roles->removeElement($userRole)) {
-            $userRole->removeUserRole($this);
         }
 
         return $this;

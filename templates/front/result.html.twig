@@ -5,6 +5,7 @@
 
     <!-- Start header Area -->
     <section class="header-area header-twelve">
+        {#<h1>Résultats de la recherche pour {{ term }}</h1>#}
         {% for type, messages in app.flashes %}
             {% for message in messages %}
                 <div class="alert alert-{{ type }}">{{ message }}</div>
@@ -29,29 +30,93 @@
 {% endif %}#}
     </section>
 
-    <!-- div hero header -->
-    <div id="hero">
-        <div class="container pt-xxl-5">
-            {{ render(controller('App\\Controller\\Front\\FrontController::search')) }}
-        </div>
-    </div>
-    <!-- ./ End div hero header -->
+    <!-- Blog start -->
+    <section id="promo" class="section offset-header">
+        <div class="container text-center">
+            <h2 class="title">dev<span class="highlight">Blog</span></h2>
 
-    <!--======  Start Section Title Four ======-->
-    <div class="section-title-four pt-5">
-        <div class="container">
-            <div class="content">
-                <h2 class="fw-bold">Nos dernières nouvelles</h2>
-                <h3 class="gray-bg">Blog</h3>
-                <p>
-                    There are many variations of passages of Lorem Ipsum available,
-                    but the majority have suffered alteration in some form.
-                </p>
+            <div class="container pt-xxl-5 intro">
+                {{ render(controller('App\\Controller\\Front\\FrontController::search')) }}
             </div>
+
+            <!-- blog start -->
+            <section class="blog-area pb-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        {% for article in articles %}
+                            <div class="col-lg-3 col-md-3 col-sm-10">
+                                <div class="single-blog blog-style-one">
+                                    <div class="blog-image">
+                                        <a href="{{ path('front_articles_show', {'slug': article.slug}) }}">
+                                            {% for image in article.images %}
+                                                <img class="card-img-top rounded-0" src="{{ asset('uploads/' ~ image.name) }}" alt="{{ article.title }}">
+                                            {% endfor %}
+                                        </a>
+                                    </div>
+                                    <div class="blog-content">
+                                        <h5 class="blog-title">
+                                            <a href="{{ path('front_articles_show', {'slug': article.slug}) }}">
+                                                <h5 class="card-title">{{ article.title }}</h5>
+                                            </a>
+                                        </h5>
+                                        {% for categorie in article.categories %}
+                                            {{ categorie.name }}
+                                        {% endfor %}
+                                        <br>
+                                        <span><i class="bi bi-calendar"></i> {{ article.createdAt|format_datetime('medium', locale="fr") }}</span>
+                                        <span><i class="bi bi-chat-dots"></i>{{ article.commentaires|length }}</span>
+                                        <span class="favoris"><i class="bi bi-heart-fill"></i>{{ article.favoris|length }}</span>
+                                        <span><img src="{{ asset('uploads/avatar/' ~article.user.avatar) }}" alt="{{ article.user.username }}" class="rounded-0 img-thumbnail" width="50" height="50">  {{ article.user.username }}</span>
+                                    </div>
+                                    <div class="txt-red">
+                                        {% if app.user %}
+                                            {% set isFavorite = false %}
+                                            {% for favoris in article.favoris %}
+                                                {% if favoris.id == app.user.id %}
+                                                    {% set isFavorite = true %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if isFavorite %}
+                                                <button class="btn-favorite" type="button" data-href="{{ url('front_remove_favoris', {id: article.id}) }}" data-id="{{ article.id }}"><i class="bi bi-hand-thumbs-up-fill"></i>
+                                                </button>
+                                            {% else %}
+                                                <button class="btn-favorite" type="button" data-href="{{ url('front_add_favoris', {id: article.id}) }}" data-id="{{ article.id }}"><i class="bi bi-hand-thumbs-up"></i>
+                                                </button>
+                                            {% endif %}
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <!-- ./ End blog start -->
         </div>
-    </div>
-    <!-- container -->
-    <!--====== End Section Title Four ======-->
+        {#<div class="social-media">
+			<div class="social-media-inner container text-center">
+        #}{#<ul class="list-inline mb-2">
+					<li class="list-inline-item twitter-follow"><a href="https://twitter.com/3rdwave_themes" class="twitter-follow-button" data-show-count="false">Follow @3rdwave_themes</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					</li><!--//twitter-follow-->
+					<li class="list-inline-item twitter-tweet">
+						<a href="https://twitter.com/share" class="twitter-share-button" data-via="3rdwave_themes" data-hashtags="bootstrap">Tweet</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					</li><!--//twitter-tweet-->
+					<li class="list-inline-item facebook-like">
+						<div class="fb-like" data-href="https://themes.3rdwavemedia.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+					</li><!--//facebook-like-->
+					<!--// Generate github buttons: https://github.com/mdo/github-buttons -->
+					<li class="list-inline-item github-star">
+						<a class="github-button" href="https://github.com/xriley/devaid-theme" data-icon="octicon-star" aria-label="Star xriley/devaid-theme on GitHub">Star</a></li>
+					<li class="list-inline-item github-follow"><!-- Place this tag where you want the button to render. -->
+						<a class="github-button" href="https://github.com/xriley" aria-label="Follow @xriley on GitHub">Follow @xriley</a></li>
+				</ul>#}{#
+        </div>
+    </div>#}
+    </section><!--//promo-->
 
     {#<div class="container mt-4">
 		<div class="relative container mx-auto px-4 pb-16 xl:pb-24 xl:pt-14">
@@ -74,60 +139,6 @@
 		</div>
 	</div>#}
 
-    <!-- blog start -->
-    <section class="blog-area pb-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                {% for article in articles %}
-                    <div class="col-lg-3 col-md-3 col-sm-10">
-                        <div class="single-blog blog-style-one">
-                            <div class="blog-image">
-                                <a href="{{ path('front_articles_show', {'slug': article.slug}) }}">
-                                    {% for image in article.images %}
-                                        <img class="card-img-top rounded-0" src="{{ asset('uploads/' ~ image.name) }}" alt="{{ article.title }}">
-                                    {% endfor %}
-                                </a>
-                            </div>
-                            <div class="blog-content">
-                                <h5 class="blog-title">
-                                    <a href="{{ path('front_articles_show', {'slug': article.slug}) }}">
-                                        <h5 class="card-title">{{ article.title }}</h5>
-                                    </a>
-                                </h5>
-                                <br>
-                                <span><i class="bi bi-calendar"></i> {{ article.createdAt|format_datetime('medium', locale="fr") }}</span>
-                                <span><i class="bi bi-chat-dots"></i>{{ article.commentaires|length }}</span>
-                                <span><i class="bi bi-heart-fill"></i>{{ article.favoris|length }}</span>
-                                <span><i class="bi bi-person"></i> {{ article.user.username }}</span>
-                            </div>
-                            <div class="txt-red">
-                                {% if app.user %}
-                                    {% set isFavorite = false %}
-                                    {% for favoris in article.favoris %}
-                                        {% if favoris.id == app.user.id %}
-                                            {% set isFavorite = true %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% if isFavorite %}
-                                        <a href="{{ url('front_remove_favoris', {id: article.id}) }}"><i class="bi bi-hand-thumbs-up-fill"></i>
-                                        </a>
-                                    {% else %}
-                                        <a href="{{ url('front_add_favoris', {id: article.id}) }}"><i class="bi bi-hand-thumbs-up"></i>
-                                        </a>
-                                    {% endif %}
-
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    <!-- ./ End blog start -->
-    <br>
-
     {#<div class="header d-none d-lg-block">
 		<strong>Meet your friends</strong>
 		<p>
@@ -145,5 +156,9 @@
 		</div>
 	</section>#}
     <!-- Home End -->
+
+    <div class="navigation pagination justify-content-center my-4">
+        {{ knp_pagination_render(articles) }}
+    </div>
 
 {% endblock %}

@@ -2,8 +2,10 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Image;
 use App\Entity\User;
 
+use App\Form\User\Type\UserFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,19 +33,79 @@ class UserController extends AbstractController
      */
     public function list(
         Request $request,
-        PaginatorInterface $paginator)
-    {
+        PaginatorInterface $paginator
+    ) {
 
         $data = $this->entityManager->getRepository(User::class)->findAll();
 
         $users = $paginator->paginate(
             $data,
-            $request->query->getInt('page',1),
+            $request->query->getInt('page', 1),
             12
         );
 
         return $this->render('back/user/list.html.twig', [
             'users' => $users,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/modification/utilisateur/{username}", name="back_users_edit")
+     * @param User $user
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function edit(User $user, EntityManagerInterface $entityManager, Request $request): Response
+    {
+
+        $form = $this->createForm(UserFormType::class, $user);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+
+            $user->setIsVerified(true);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $images = $form->get('avatar')->getData();
+
+                if($images){
+
+                    // We generate a new file name
+                    $file = md5(uniqid()) . '.' . $images->guessExtension();
+
+                    // We copy the file in the uploads folder
+                    $images->move(
+                        $this->getParameter('profile_directory'),
+                        $file
+                    );
+
+                    // Create the image in the database
+
+                    $user->setAvatar($file);
+                    $user->setRoles($form->get('roles')->getData());
+
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                }
+
+                $this->addFlash('success','L\'utilisateur '. $user->getUsername() .' a été modifié avec succès. ');
+
+                return $this->redirectToRoute('back_users_list');
+
+            }
+
+
+            return $this->redirectToRoute('back_users_list', [
+                'username' => $user->getUsername(),
+            ]);
+        }
+
+        return $this->render('back/user/edit.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 }

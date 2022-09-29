@@ -9,6 +9,11 @@
             Publier l'article !
         </a>
 
+        <a href="{{ url('back_articles_remove', {slug: article.slug}) }}" class="btn btn-danger">
+            <i class="bi bi-file-earmark-minus"></i>
+            Supprimer l'article !
+        </a>
+
         <hr>
 
         {% if app.request.attributes.get('_route') == 'back_articles_edit' %}

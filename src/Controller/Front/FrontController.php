@@ -4,6 +4,8 @@ namespace App\Controller\Front;
 
 use App\Data\SearchData;
 use App\Entity\Article;
+use App\Entity\Category;
+use App\Entity\User;
 use App\Form\Model\SearchModel;
 use App\Form\Search\SearchType;
 use App\Repository\ArticleRepository;
@@ -30,6 +32,8 @@ class FrontController extends AbstractController
             10
         );
 
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
         /*$articles = $articleRepository->findSearch($search,$paginator);*/
 
         /*if($request->isMethod('POST'))
@@ -47,6 +51,50 @@ class FrontController extends AbstractController
 
         return $this->render('front/home.html.twig', [
             'articles' => $articles,
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * @Route("/mes-favoris/{id}", name="front_favorites" , requirements={"id":"\d+"})
+     * @param Article $article
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @param ArticleRepository $articleRepository
+     * @return Response
+     */
+    public function favorite(User $user,EntityManagerInterface $entityManager, Request $request,PaginatorInterface $paginator,ArticleRepository $articleRepository)
+    {
+        $articles = $entityManager->getRepository(User::class)->findArticlesByFavorites();
+
+        /* = $paginator->paginate(
+            $data,
+            $request->query->getInt('page',1),
+            10
+        );*/
+
+
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
+        /*$articles = $articleRepository->findSearch($search,$paginator);*/
+
+        /*if($request->isMethod('POST'))
+        {
+            if($formSearch->isSubmitted() && $formSearch->isValid())
+            {
+                $entityManager->persist($users);
+                $entityManager->persist($search);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Merci de votre inscription ! Vous serez informé sous peu de nos dernières actualités.');
+                return $this->redirectToRoute('front_home');
+            }
+        }*/
+
+        return $this->render('front/favorites/show.html.twig', [
+            'articles' => $articles,
+            'categories' => $categories,
         ]);
     }
 
@@ -71,8 +119,13 @@ class FrontController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $articles = $entityManager->getRepository(Article::class)->findBySearch($searchModel);
+                $data = $entityManager->getRepository(Article::class)->findBySearch($searchModel);
 
+                $articles = $paginator->paginate(
+                    $data,
+                    $request->query->getInt('page',1),
+                    10
+                );
                 return $this->render('front/result.html.twig', [
                         'articles' => $articles,
                 ]);
@@ -81,6 +134,22 @@ class FrontController extends AbstractController
 
         return $this->render('front/includes/search.html.twig', [
                 'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/blog/categorie/{name}", name="front_category")
+     * @return Response
+     */
+    public function Categories(Category $category,EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
+    {
+        $category = $entityManager->getRepository(Category::class)->find($category);
+
+        $articles = $entityManager->getRepository(Article::class)->findByCategoryName($category->getName());
+
+        return $this->render('front/category/home.html.twig', [
+            'categorie' => $category,
+            'articles' => $articles,
         ]);
     }
 }

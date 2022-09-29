@@ -10,10 +10,11 @@ $(function () {
         $.ajax({
             url: route,
             success: function (response) {
+                console.log(response.data);
                 if (isFavorite.children().hasClass('bi-hand-thumbs-up-fill')) {
                     isFavorite.children().removeClass('bi-hand-thumbs-up-fill')
                     isFavorite.children().addClass('bi-hand-thumbs-up')
-                } else {
+                } else if(isFavorite.children().hasClass('bi-hand-thumbs-up')) {
                     isFavorite.children().removeClass('bi-hand-thumbs-up')
                     isFavorite.children().addClass('bi-hand-thumbs-up-fill')
                 }
@@ -21,5 +22,3 @@ $(function () {
         })
     })
 });
-
-

@@ -22,9 +22,7 @@
                     <td>{{ comment.id }}</td>
                     <td>{{ comment.content }}</td>
                     <td>
-                        {% for user in comment.user %}
-                            {{ user }}
-                        {% endfor %}
+                        {{ comment.user.username }}
                     </td>
                     <td>
                         {% if comment.active == true %}

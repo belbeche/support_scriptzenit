@@ -11,6 +11,7 @@
 
         <h1>{{ article.slug }}</h1><br>
         <p>Par {{ article.user.username }}</p>
+        <img src="{{ asset('uploads/avatar/' ~article.user.avatar) }}" alt="{{ article.user.username }}" class="rounded-0 img-thumbnail" width="50" height="50">
 
         <pre>
             <code>

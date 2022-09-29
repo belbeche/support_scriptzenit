@@ -1,31 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} - {{ article.title }} - {% endblock %}
+{% block title %}
+	-
+	{{ article.title }}
+	-
+{% endblock %}
 
 {% block content %}
 
 	<div class="container">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="{{ url('front_home') }}">Accueil</a></li>
+				<li class="breadcrumb-item">
+					<a href="{{ url('front_home') }}">Accueil</a>
+				</li>
 				<li class="breadcrumb-item active" aria-current="page">{{ article.slug }}</li>
 			</ol>
 		</nav>
 	</div>
 	<div class="container">
-		<!-- Your share button code -->
-		<div class="fb-share-button"
-			 data-href="https://www.facebook.com/DevHistory-102504155383966"
-			 data-layout="button_count">
-		</div>
+		{% if article.isPublished %}
+			<small class="badge badge-success">Article publier</small>
+		{% else %}
+			<small class="badge badge-warning">Article en attente de relecture</small>
+		{% endif %}
 	</div>
 
 
 	<article class="container mt-4 text-center">
 		<h1>{{ article.title }}</h1>
 		<br>
-		<p class="text-secondary">Par <img src="{{ asset('uploads/avatar' ~article.user.avatar) }}" alt="{{ article.user.username }}"> {{ article.user.username }} | le {{ article.createdAt|format_datetime('full', 'short', locale='fr') }} |  modifié le {{ article.updatedAt|format_datetime('full', 'short', locale='fr') }}</p>
-
+		<p class="text-secondary">Par
+			<img src="{{ asset('uploads/avatar/' ~article.user.avatar) }}" alt="{{ article.user.username }}" class="rounded-0 img-thumbnail" width="50" height="50">
+			{{ article.user.username }}
+			| le
+			{{ article.createdAt|format_datetime('full', 'short', locale='fr') }}
+			|  modifié le
+			{{ article.updatedAt|format_datetime('full', 'short', locale='fr') }}</p>
 
 
 		{% for image in article.images %}
@@ -33,16 +44,20 @@
 		{% endfor %}
 
 		<div class="mt-4">
-			{{ article.content|raw }}
+			<pre>
+				{{ article.content|raw }}
+			</pre>
 		</div>
 
-		<h1>Commentaires </h1>
+		<h1>Commentaires</h1>
 
 		{% for comment in comments %}
 			{# dump the data in twig #}
 			{#{{ dump(comment.user.username) }}#}
-			<p>
-				{{ comment.user.username }} à dit : {{ comment.content|raw }}
+				<p>
+				{{ comment.user.username }}
+				à dit :
+			{{ comment.content|raw }}
 			</p>
 		{% else %}
 			<p>Pas de commentaires...</p>
@@ -51,7 +66,8 @@
 		{% if app.user %}
 			<div class="form-group">
 				{{ form_start(form) }}
-				<label for="">Laisser un commentaire  en tant que {{ app.user.username }}</label>
+				<label for="">Laisser un commentaire  en tant que
+					{{ app.user.username }}</label>
 				{{ form_widget(form.content) }}
 				{{ form_rest(form) }}
 
