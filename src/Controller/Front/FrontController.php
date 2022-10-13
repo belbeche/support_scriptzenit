@@ -21,15 +21,15 @@ class FrontController extends AbstractController
     /**
      * @Route("/", name="front_home")
      */
-    public function home(EntityManagerInterface $entityManager, Request $request,PaginatorInterface $paginator,ArticleRepository $articleRepository)
+    public function home(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator, ArticleRepository $articleRepository)
     {
 
-        $data = $entityManager->getRepository(Article::class)->findBy(['isPublished' => true],['id' => 'desc']);
+        $data = $entityManager->getRepository(Article::class)->findBy(['isPublished' => true], ['id' => 'desc']);
 
         $articles = $paginator->paginate(
             $data,
-            $request->query->getInt('page',1),
-            10
+            $request->query->getInt('page', 1),
+            4
         );
 
         $categories = $entityManager->getRepository(Category::class)->findAll();
@@ -94,17 +94,17 @@ class FrontController extends AbstractController
 
                 $articles = $paginator->paginate(
                     $data,
-                    $request->query->getInt('page',1),
+                    $request->query->getInt('page', 1),
                     10
                 );
                 return $this->render('front/result.html.twig', [
-                        'articles' => $articles,
+                    'articles' => $articles,
                 ]);
             }
         }
 
         return $this->render('front/includes/search.html.twig', [
-                'form' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 
@@ -112,7 +112,7 @@ class FrontController extends AbstractController
      * @Route("/blog/categorie/{name}", name="front_category")
      * @return Response
      */
-    public function Categories(Category $category,EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
+    public function Categories(Category $category, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
         $category = $entityManager->getRepository(Category::class)->find($category);
 

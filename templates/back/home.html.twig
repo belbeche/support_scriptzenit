@@ -1,7 +1,7 @@
 {% extends 'base_back.html.twig' %}
 
 {% block title %}
-	- Admin -
+	Admin
 {% endblock %}
 
 {% block content %}
@@ -51,8 +51,8 @@
 									{#<td>{{ article.isPublished ? article.createdAt|format_datetime('full', 'short', locale='fr') }}</td>#}
 									<td>{{ article.isPublished ? article.createdAt|format_datetime('full', 'short', locale='fr') }}</td>
 									{#
-																	<td>{{ article.isPublished|date("d/m/Y", "Europe/Paris") }} à {{ article.isPublished|date("H:m:s", "Europe/Paris") }}</td>
-																	#}
+																										<td>{{ article.isPublished|date("d/m/Y", "Europe/Paris") }} à {{ article.isPublished|date("H:m:s", "Europe/Paris") }}</td>
+																										#}
 									<td>{{ article.isPublished ? article.updatedAt|format_datetime('full', 'short', locale='fr') }}</td>
 									<td class="text-center">
 										<a href="{{ url('back_articles_edit', {'slug': article.slug}) }}" class="text-success">
