@@ -76,7 +76,7 @@
 										<span><img src="{{ asset('uploads/avatar/' ~article.user.avatar) }}" alt="{{ article.user.username }}" class="rounded-0 img-thumbnail" width="50" height="50">
 											{{ article.user.username }}</span>
 									</div>
-									<div class="txt-red">
+									<div>
 										{% if app.user %}
 											{% set isFavorite = false %}
 											{% for favoris in article.favoris %}
@@ -104,6 +104,10 @@
 			</section>
 		</div>
 		<!-- ./ End blog start -->
+	</div>
+
+	<div class="navigation pagination justify-content-center my-4">
+		{{ knp_pagination_render(articles) }}
 	</div>
 
 {% endblock %}

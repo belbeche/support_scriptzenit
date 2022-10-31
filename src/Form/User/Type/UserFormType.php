@@ -47,8 +47,7 @@ class UserFormType extends AbstractType
                 'required' => true
             ])
             /*->add('favoris')*/
-            /*->add('user_roles')*/
-        ;
+            /*->add('user_roles')*/;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

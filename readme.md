@@ -2,7 +2,17 @@ Project school : Développeur web et web mobile
 
 <center>Développement du projet Blog</center>
 
-Ce projet Symfony 5.4.9 serra présenter pour la validation de mon block de compétences concernant la partie back end.  
+Ce projet Symfony 5.4.9 serra présenter pour la validation de mes blocks de compétences concernant la partie back end et front end.  
 
-- Développer la partie back-end d’une application web ou web mobile en intégrant les
-  recommandations de sécurité.
+<center>Liste des compétences du référentiel couvertes par le projet</center>
+
+Ce projet couvre des compétences du référentiel suivant :
+
+1. Maquetter une application ;
+2. Réaliser une interface utilisateur web statique et adaptable ;
+3. Développer une interface utilisateur web dynamique ;
+
+5. Créer une base de données ;
+6. Développer les composants d’accès aux données ;
+7. Développer la partie back-end d’une application web ou web mobile ;
+

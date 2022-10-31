@@ -33,13 +33,11 @@
 									</td>
 									<td>{{ user.username }}</td>
 									<td>
-										{% if user.getRoles('ROLE_ADMIN') %}
-											<small class="badge badge-success">admin.</small>
-										{% elseif user.getRoles('ROLE_MODERATOR') %}
-											<small class="badge badge-primary">moderateur</small>
-										{% else %}
-											<small class="badge badge-warning">user</small>
-										{% endif %}
+										{% for role in user.getRoles %}
+											<small class="badge badge-warning">
+												{{ role }}
+											</small>
+										{% endfor %}
 									</td>
 									<td class="text-center">
 										<a href="{{ url('back_users_edit', {username: user.username}) }}" class="text-success">

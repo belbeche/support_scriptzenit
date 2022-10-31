@@ -37,14 +37,14 @@ class ArticleController extends AbstractController
      */
     public function list(
         Request $request,
-        PaginatorInterface $paginator)
-    {
+        PaginatorInterface $paginator
+    ) {
 
         $data = $this->entityManager->getRepository(Article::class)->findAll();
 
         $articles = $paginator->paginate(
             $data,
-            $request->query->getInt('page',1),
+            $request->query->getInt('page', 1),
             12
         );
 
@@ -62,8 +62,7 @@ class ArticleController extends AbstractController
      */
     public function new(
         Request $request
-    ): Response
-    {
+    ): Response {
         $article = new Article();
 
         $form = $this->createForm(ArticleType::class, $article);
@@ -79,13 +78,11 @@ class ArticleController extends AbstractController
 
                 $article->setIsPublished(false);
 
-                $article->setUpdatedAt(new \DateTime);
-
                 $images = $form->get('images')->getData();
 
-                foreach($images as $image){
+                foreach ($images as $image) {
                     // We generate a new file name
-                    $file = md5(uniqid()).'.'.$image->guessExtension();
+                    $file = md5(uniqid()) . '.' . $image->guessExtension();
 
                     // On copie le fichier dans le dossier uploads
 
@@ -106,7 +103,7 @@ class ArticleController extends AbstractController
 
                 $this->entityManager->flush();
 
-                $this->addFlash('success','Article ajouté avec succéss');
+                $this->addFlash('success', 'Article ajouté avec succéss');
 
                 return $this->redirectToRoute('back_home');
             }
@@ -123,7 +120,8 @@ class ArticleController extends AbstractController
      */
     public function publish(Article $article)
     {
-        if ($article->getImages() !== null && $article->getImages() !== ''
+        if (
+            $article->getImages() !== null && $article->getImages() !== ''
             && $article->getContent() !== null && $article->getContent() !== ''
             && $article->getCategories() !== null
             && $article->getTitle() !== null && $article->getTitle() !== ''
@@ -132,7 +130,7 @@ class ArticleController extends AbstractController
 
             $article->setIsPublished(true);
 
-            $this->addFlash('success','Article publié avec succéss');
+            $this->addFlash('success', 'Article publié avec succéss');
 
             $this->entityManager->persist($article);
             $this->entityManager->flush();
@@ -158,8 +156,7 @@ class ArticleController extends AbstractController
     public function show(
         Article $article,
         EntityManagerInterface $entityManager
-    ): Response
-    {
+    ): Response {
         $article = $entityManager->getRepository(Article::class)->find($article);
 
         return $this->render('back/article/show.html.twig', [
@@ -176,8 +173,7 @@ class ArticleController extends AbstractController
     public function edit(
         Article $article,
         Request $request
-    ): Response
-    {
+    ): Response {
         $form = $this->createForm(ArticleType::class, $article);
 
         if ($request->isMethod('POST')) {
@@ -185,13 +181,12 @@ class ArticleController extends AbstractController
 
             $article->setUpdatedAt(new \DateTime("NOW"));
 
-            if($form->isSubmitted() && $form->isValid())
-            {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $images = $form->get('images')->getData();
 
-                foreach($images as $image){
+                foreach ($images as $image) {
                     // We generate a new file name
-                    $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                    $fichier = md5(uniqid()) . '.' . $image->guessExtension();
 
                     // On copie le fichier dans le dossier uploads
                     $image->move(
@@ -236,16 +231,15 @@ class ArticleController extends AbstractController
      */
     public function disable(
         $id
-    ): Response
-    {
+    ): Response {
         $article = $this->entityManager->getRepository(Article::class)->find($id);
         $article->setActive(!$article->isActive());
         $this->entityManager->persist($article);
         $this->entityManager->flush();
-        if($article->isActive() == true){
-            $this->addFlash('warning', "L'article ".$article->getSlug()." a bien était désactiver :[");
-        }else {
-            $this->addFlash('success', "L'article ".$article->getSlug()." a bien était réactiver :]");
+        if ($article->isActive() == true) {
+            $this->addFlash('warning', "L'article " . $article->getSlug() . " a bien était désactiver :[");
+        } else {
+            $this->addFlash('success', "L'article " . $article->getSlug() . " a bien était réactiver :]");
         }
 
         return $this->redirectToRoute('back_articles_list');
@@ -259,14 +253,13 @@ class ArticleController extends AbstractController
     public function remove(
         Article $article,
         Request $request
-    ): Response
-    {
+    ): Response {
 
-        if($article->getCreatedAt(true)){
+        if ($article->getCreatedAt(true)) {
             $this->addFlash('success', "L'article " . $article->getSlug() . " est supprimé avec success !");
             $this->entityManager->remove($article);
             $this->entityManager->flush();
-        }else {
+        } else {
             $this->addFlash('success', "L'article " . $article->getSlug() . " est activé, disactivez-le puis réessayer, merci.");
         }
 
@@ -282,13 +275,13 @@ class ArticleController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // We check if the token is valid
-        if($this->isCsrfTokenValid('delete'.$image->getName(), $data['_token'])){
+        if ($this->isCsrfTokenValid('delete' . $image->getName(), $data['_token'])) {
 
             // We get the name of the image
             $nom = $image->getName();
 
             // We delete the file
-            unlink($this->getParameter('images_directory').'/'.$nom);
+            unlink($this->getParameter('images_directory') . '/' . $nom);
 
             // We delete the entry from the database
 
@@ -297,7 +290,7 @@ class ArticleController extends AbstractController
 
             // We answer in json
             return new JsonResponse(['success' => 1]);
-        }else{
+        } else {
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
     }
