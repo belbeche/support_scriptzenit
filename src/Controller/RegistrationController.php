@@ -44,6 +44,7 @@ class RegistrationController extends AbstractController
             );
 
             $user->setRoles(['ROLE_USER']);
+            $user->setDate(new \Datetime('NOW'));
 
 
             $entityManager->persist($user);

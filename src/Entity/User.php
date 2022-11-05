@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -27,14 +27,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 10,
+     *      minMessage = "Votre nom d'utilisateur doit comporter au moins {{ limit }} caractères.",
+     *      maxMessage = "Votre nom d'utilisateur ne peut pas comporter plus de {{ limit }} caractères."
+     * )
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\Email()
-     * @Assert\NotBlank
+     * 
+     * @Assert\Email(
+     *     message = "l'email '{{ value }}' n'est pas un courriel valide."
+     * )
      */
     private $email;
 
@@ -65,11 +72,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Article::class, mappedBy="favoris")
-     */
-    private $favoris;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar;
@@ -83,7 +85,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,33 +249,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeComment(Comment $comment)
     {
         $this->comments->removeElement($comment);
-    }
-
-    /**
-     * @return Collection<int, Article>
-     */
-    public function getFavoris(): Collection
-    {
-        return $this->favoris;
-    }
-
-    public function addFavori(Article $favori): self
-    {
-        if (!$this->favoris->contains($favori)) {
-            $this->favoris[] = $favori;
-            $favori->addFavori($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFavori(Article $favori): self
-    {
-        if ($this->favoris->removeElement($favori)) {
-            $favori->removeFavori($this);
-        }
-
-        return $this;
     }
 
     public function getAvatar(): ?string

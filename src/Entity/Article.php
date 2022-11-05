@@ -71,11 +71,6 @@ class Article
     private $images;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="favoris")
-     */
-    private $favoris;
-
-    /**
      * @ORM\Column(type="boolean", options={"default": false})
      */
     private $isPublished;
@@ -96,7 +91,6 @@ class Article
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
-        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -264,30 +258,6 @@ class Article
     public function removeImage(Image $image)
     {
         $this->images->removeElement($image);
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getFavoris(): Collection
-    {
-        return $this->favoris;
-    }
-
-    public function addFavori(User $favori): self
-    {
-        if (!$this->favoris->contains($favori)) {
-            $this->favoris[] = $favori;
-        }
-
-        return $this;
-    }
-
-    public function removeFavori(User $favori): self
-    {
-        $this->favoris->removeElement($favori);
-
-        return $this;
     }
 
     public function isIsPublished(): ?bool

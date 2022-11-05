@@ -49,6 +49,10 @@ class FrontController extends AbstractController
             }
         }*/
 
+        // session_start();
+
+        // dd(unserialize($_SESSION['_sf2_attributes']['_security_main']));
+
         return $this->render('front/home.html.twig', [
             'articles' => $articles,
             'categories' => $categories,
