@@ -38,7 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * 
+     *
      * @Assert\Email(
      *     message = "l'email '{{ value }}' n'est pas un courriel valide."
      * )
@@ -81,10 +81,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $date;
 
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="UserLike",
+     *     mappedBy="user",
+     *     orphanRemoval=true,
+     *     cascade={"persist"}
+     * )
+     */
+    private Collection $likes;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -273,5 +284,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->date = $date;
 
         return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param Collection $likes
+     * @return User
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+        return $this;
+    }
+
+    /**
+     * @param UserLike $like
+     * @return void
+     */
+    public function addLike(UserLike $like)
+    {
+        $this->likes[] = $like;
+    }
+
+    /**
+     * @param UserLike $like
+     * @return void
+     */
+    public function removeLike(UserLike $like)
+    {
+        $this->likes->removeElement($like);
     }
 }

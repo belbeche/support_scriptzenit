@@ -7,6 +7,7 @@ use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\Image;
 use App\Entity\User;
+use App\Entity\UserLike;
 use App\Form\Article\Type\ArticleType;
 use App\Form\Article\Type\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -134,47 +135,5 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
             'comments' => $comments
         ]);
-    }
-
-    /**
-     * @Route("/favoris/ajout/{id}", name="front_add_favoris")
-     */
-    public function addFavoris(Article $article,EntityManagerInterface $entityManager)
-    {
-        if(!$article){
-            throw new NotFoundHttpException('Pas d\'article trouvé');
-        }
-
-        $article->addFavori($this->getUser());
-
-        $entityManager->persist($article);
-        $entityManager->flush();
-
-        return new JsonResponse([
-            'success' => 'added',
-            'article' => $article,
-
-        ], 200);
-    }
-
-    /**
-     * @Route("/favoris/remove/{id}", name="front_remove_favoris")
-     */
-    public function removeFavoris(Article $article,EntityManagerInterface $entityManager)
-    {
-        if(!$article){
-            throw new NotFoundHttpException('Pas d\'annonce trouvée');
-        }
-
-        $article->removeFavori($this->getUser());
-
-        $entityManager->persist($article);
-        $entityManager->flush();
-
-        return new JsonResponse([
-            'success' => 'removed',
-            'article' => $article,
-
-        ], 200);
     }
 }

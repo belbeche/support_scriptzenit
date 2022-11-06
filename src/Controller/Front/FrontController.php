@@ -5,13 +5,14 @@ namespace App\Controller\Front;
 use App\Data\SearchData;
 use App\Entity\Article;
 use App\Entity\Category;
-use App\Entity\User;
+use App\Entity\UserLike;
 use App\Form\Model\SearchModel;
 use App\Form\Search\SearchType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,20 +61,6 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/mes-favoris/{id}", name="front_favorites" , requirements={"id":"\d+"})
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    public function favorite(EntityManagerInterface $entityManager)
-    {
-        $favorites = $this->getUser()->getFavoris();
-
-        return $this->render('front/favorites/show.html.twig', [
-            'favorites' => $favorites,
-        ]);
-    }
-
-    /**
      * @Route("/contact", name="front_contact")
      * @return Response
      */
@@ -101,6 +88,7 @@ class FrontController extends AbstractController
                     $request->query->getInt('page', 1),
                     10
                 );
+
                 return $this->render('front/result.html.twig', [
                     'articles' => $articles,
                 ]);
@@ -126,5 +114,48 @@ class FrontController extends AbstractController
             'categorie' => $category,
             'articles' => $articles,
         ]);
+    }
+
+    /**
+     * @Route("/blog/likes/{id}", name="front_like")
+     * @return Response
+     */
+    public function isLike(EntityManagerInterface $entityManager, int $id): Response
+    {
+        // Je recupère l'article sur lequel je clique.
+        $article = $entityManager->getRepository(Article::class)->find($id);
+        // Je récurpère le userLike en fonction de l'article ci-dessus.
+        $userLike = $entityManager->getRepository(UserLike::class)->findOneBy(['article' => $article]);
+
+        $isLike = false;
+
+        // On boucle sur l'existant
+        foreach ($article->getLikes() as $like) {
+            // l'utilisateur connecté figure dans la liste des userLikes on fonction
+            // de l'article courant
+            if ($like->getUser() == $this->getUser()) {
+                // on pass le flag à true
+                $isLike = true;
+            }
+        }
+
+        // on se base sur le flag afin de déterminer si on remove ou pas.
+        if ($isLike) {
+            $entityManager->remove($userLike);
+        } else {
+            // Sinon on ajoute un like
+            $userLike = new UserLike();
+
+            $userLike->setArticle($article);
+            $userLike->setUser($this->getUser());
+            $entityManager->persist($userLike);
+        }
+
+        $entityManager->flush();
+
+//        return $this->redirectToRoute('front_home');
+        return new JsonResponse([
+            'success' => 'Enregistrement ok !'
+        ], 200);
     }
 }

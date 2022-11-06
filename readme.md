@@ -12,7 +12,10 @@ Ce projet couvre des compétences du référentiel suivant :
 2. Réaliser une interface utilisateur web statique et adaptable ;
 3. Développer une interface utilisateur web dynamique ;
 
-5. Créer une base de données ;
-6. Développer les composants d’accès aux données ;
-7. Développer la partie back-end d’une application web ou web mobile ;
+4. Créer une base de données ;
+5. Développer les composants d’accès aux données ;
+6. Développer la partie back-end d’une application web ou web mobile ;
+
+
+
 

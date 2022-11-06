@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
 class Article
 {
@@ -50,6 +49,21 @@ class Article
     private $slug;
 
     /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $isPublished;
+
+    /**
+     * @ORM\Column(type="datetime", nullable="true")
+     */
+    private $publishedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article", orphanRemoval=true)
      */
     private $commentaires;
@@ -71,19 +85,14 @@ class Article
     private $images;
 
     /**
-     * @ORM\Column(type="boolean", options={"default": false})
+     * @ORM\OneToMany(
+     *     targetEntity="UserLike",
+     *     mappedBy="article",
+     *     orphanRemoval=true,
+     *     cascade={"persist"}
+     * )
      */
-    private $isPublished;
-
-    /**
-     * @ORM\Column(type="datetime", nullable="true")
-     */
-    private $publishedAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updatedAt;
+    private Collection $likes;
 
     public function __construct()
     {
@@ -91,6 +100,7 @@ class Article
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -295,5 +305,41 @@ class Article
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param Collection $likes
+     * @return Article
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+        return $this;
+    }
+
+    /**
+     * @param UserLike $like
+     * @return void
+     */
+    public function addLike(UserLike $like)
+    {
+        $this->likes[] = $like;
+    }
+
+    /**
+     * @param UserLike $like
+     * @return void
+     */
+    public function removeLike(UserLike $like)
+    {
+        $this->likes->removeElement($like);
     }
 }
