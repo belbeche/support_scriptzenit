@@ -45,6 +45,7 @@ class RegistrationController extends AbstractController
 
             $user->setRoles(['ROLE_USER']);
             $user->setDate(new \Datetime('NOW'));
+            $user->setAvatar('profil_default.png');
 
 
             $entityManager->persist($user);

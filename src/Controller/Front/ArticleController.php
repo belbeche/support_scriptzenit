@@ -6,18 +6,13 @@ namespace App\Controller\Front;
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\Image;
-use App\Entity\User;
-use App\Entity\UserLike;
 use App\Form\Article\Type\ArticleType;
 use App\Form\Article\Type\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -34,8 +29,7 @@ class ArticleController extends AbstractController
     public function new(
         Request $request,
         EntityManagerInterface $entityManager
-    ): Response
-    {
+    ): Response {
         $article = new Article();
 
         $form = $this->createForm(ArticleType::class, $article);
@@ -51,13 +45,11 @@ class ArticleController extends AbstractController
 
                 $article->setIsPublished(false);
 
-                $article->setUpdatedAt(new \DateTime);
-
                 $images = $form->get('images')->getData();
 
-                foreach($images as $image){
+                foreach ($images as $image) {
                     // We generate a new file name
-                    $file = md5(uniqid()).'.'.$image->guessExtension();
+                    $file = md5(uniqid()) . '.' . $image->guessExtension();
 
                     // On copie le fichier dans le dossier uploads
 
@@ -78,7 +70,7 @@ class ArticleController extends AbstractController
 
                 $entityManager->flush();
 
-                $this->addFlash('success','Article ajouté en brouillon, en attente de validation.');
+                $this->addFlash('success', 'Article ajouté en brouillon, en attente de validation.');
 
                 return $this->redirectToRoute('front_articles_show', ['slug' => $article->getSlug()]);
             }
@@ -98,8 +90,7 @@ class ArticleController extends AbstractController
         EntityManagerInterface $entityManager,
         Request $request,
         Article $article
-    ): Response
-    {
+    ): Response {
         // to get the comment in the article, we assign it in the variable $article
         $article = $entityManager->getRepository(Article::class)->find($article->getId());
 

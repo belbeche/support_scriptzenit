@@ -5,10 +5,94 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b6e5c2e-ff46-4bd5-9f75-d5689d15c058" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/blog_2022.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/blog_2022.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/07e5b8542a11978d4ee898ddbbc1dcfe.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/0b21543f1db149403fc2b7346ad54a94.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/14cdd0509adc7fa13a8a010d71e2b1db.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/1a33896816804e7ccf8842b1cd7ab809.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/1dcf15c592a199fd48343c10752b7079.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/209980730651eaf23e35e7052010a47e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/238073ae8a781fe6bd5fde97d4a0d56a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/25f31e84be81beb35453635d7bf5135a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/2666a68aeaf9b9102ef55f0694575cce.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/2836d4be065f84c738b3e69e64f182a4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/2d6a7aa0ca2be85e006fca0e18bcedb7.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/2f032066efd4452de8b558b12cad624f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/3009d09226b1c8a1f432473fef9fe1ee.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/30ac6add220902c3d9877c646a0a65c0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/30c77c382a5ac172d22431a4f3eb282d.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/4c72b3891e59576916db386a7f5104aa.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/4ccbb833bc8e06f311a7fc8b7d62582d.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/55f3c338b32f4b42ada9fa70ffe0c434.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/5ac496cb3fda9fe029527eba17498d7b.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/5ae0f9b76cb2b7c80e5a4fddbb561c9f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/61903375bc376de67f9b8ea1ddc37491.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/63e2b489b9c455772c9b329a559ef465.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/71f4dfb00aa88dd661bc0c9274c595c5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/765ba9559421f62521efe91843cf1f89.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/7661ccb10a14e83f346aea953823827f.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/774c8f5547315a37eb0cb3ecca758462.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/7a9fea63869a68402249517c0c422a8d.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/7acebac06c2db53594462a0c9718c397.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/7cbf9f94fb282e9c0d8b10098a0d40cc.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/80c15c8515be71b905269ac02606828b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/843f6ddd2ac38d0012eee6d9c962ffa0.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/88df8fcc5eaaa68950e11b294eb3ef0e.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/9051879e12b4df7331ef24ff4fd723cd.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/90b207c19f6df9ea3461926a9cb0da3a.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/90d6422a6318da1c557e1f5e9abf164b.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/9a0c6e82518a78fd04e27f72dc3ad2c8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/9b411f0fe57e95395fb0abb708b260af.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/a1c67416da69fafe285efcc4e0cb761e.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/a1eae43847d410446fae8d4e93274891.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/a26cc1c51f646f6b00cc37e15ea23aa1.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/a2c44aa4faabb4318284c065fa0c47d7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/avatar/03d70432ee3a27c3642117cf3cac4ce0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/avatar/1b52f39b582c2fd0432471d96d9b26a0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/b974c6f9871d3139b9a06d8cc656ef2f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/bb8313204b7a17e87420d964d82f676a.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/bbe8b46c28b53107c9e976f36eea12f5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/c13ab7e139ba39b24a6c9ed7db19c741.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/c2e71f753e5ade16e68fac45ebee1d0b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/c7cf97d53b86a998d0853352ca6bf9cb.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/c8036e9672af4993e94d55e5a15627eb.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/cb1ffa4b99682ec59c0690cf5a1fb598.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/cd9c95b2a10f68847a2f1342c330b280.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/d0f7a4f95f067e6c1d808769be375bcb.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/d1b5ebd8f3792667d6f56a45c0c4443b.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/d66e527af3b1e0b0c7b238f1104e4296.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/da86e256576ead3e24398771a9e160c1.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dbd374c6f25739992f29c69212c881e4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dd52125308458736b6552b51c7f3ade2.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/e007d71a0f488206a88fa64e0012a3e7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/e094d1dcabaae606c413caf253b26cba.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/ec471986e35d9cda954a64ba16c33018.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/ee4725030b5cb8bc5a2b4112b9961564.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/ef580542ad5aa8d6d5a0bce4fb70c550.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/f04fdcfac8a0b0d934c50b529266ea75.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/f30a2261cebd9664918cbf72712becc0.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/fb88dc90b4a3aca245669afa13684500.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/fd4cb128ee84d17ff12e8232ff77b80c.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/fe4281aafeadb3a1edffa6d36f350469.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/fe5e15f19b7ed656c8e6f92bd9d9a4f4.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/fede3c87911b4381d1e8c377030d7db7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Front/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Front/ArticleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Front/FrontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Front/FrontController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/UserLike.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/UserLike.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/User/Type/UserFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/User/Type/UserFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserLikeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserLikeRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/front/category/home.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/category/home.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/front/favorites/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/favorites/show.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/front/home.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/home.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/front/includes/_article_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/includes/_article_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/front/includes/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/includes/nav.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/front/result.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/result.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,6 +286,10 @@
       <path value="$PROJECT_DIR$/vendor/twig/intl-extra" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-uuid" />
       <path value="$PROJECT_DIR$/vendor/symfony/uid" />
+      <path value="$PROJECT_DIR$/vendor/symfony/requirements-checker" />
+      <path value="$PROJECT_DIR$/vendor/symfony/apache-pack" />
+      <path value="$PROJECT_DIR$/vendor/symfonycasts/reset-password-bundle" />
+      <path value="$PROJECT_DIR$/vendor/deployer/deployer" />
     </include_path>
   </component>
   <component name="ProjectId" id="2Eut0goLtFhxGAbz9MRJm10IWPV" />
@@ -242,6 +330,7 @@
       <workItem from="1666087957334" duration="3016000" />
       <workItem from="1666201190623" duration="648000" />
       <workItem from="1666255442275" duration="17000" />
+      <workItem from="1671317460479" duration="382000" />
     </task>
     <servers />
   </component>

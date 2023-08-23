@@ -5,6 +5,7 @@ namespace App\Controller\Front;
 use App\Data\SearchData;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\User;
 use App\Entity\UserLike;
 use App\Form\Model\SearchModel;
 use App\Form\Search\SearchType;
@@ -153,9 +154,55 @@ class FrontController extends AbstractController
 
         $entityManager->flush();
 
-//        return $this->redirectToRoute('front_home');
+        //        return $this->redirectToRoute('front_home');
         return new JsonResponse([
             'success' => 'Enregistrement ok !'
         ], 200);
+    }
+
+    /**
+     * @Route("/mes-favoris/{id}", name="front_favorites" , requirements={"id":"\d+"})
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function favorite(EntityManagerInterface $entityManager, int $id)
+    {
+
+        // Je recupère l'article sur lequel je clique.
+        $article = $entityManager->getRepository(Article::class)->find($id);
+
+        $userLike = $entityManager->getRepository(UserLike::class)->findOneBy(['article' => $article]);
+
+        $userLike->getLike();
+
+        dd($userLike);
+
+        return $this->render('front/favorites/show.html.twig', [
+            'favorites' => $favorites,
+        ]);
+    }
+
+
+    /**
+     * @Route("/blog", name="front_blog")
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function blog(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator)
+    {
+        $data = $entityManager->getRepository(Article::class)->findBy(['isPublished' => true], ['id' => 'desc']);
+
+        $articles = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),
+            4
+        );
+
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
+        return $this->render('front/article/blog.html.twig', [
+            'articles' => $articles,
+            'categories' => $categories
+        ]);
     }
 }

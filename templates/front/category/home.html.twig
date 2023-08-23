@@ -32,10 +32,10 @@
                                     <br>
                                     <span><i class="bi bi-calendar"></i> {{ article.createdAt|format_datetime('medium', locale="fr") }}</span>
                                     <span><i class="bi bi-chat-dots"></i>{{ article.commentaires|length }}</span>
-                                    <span class="favoris"><i class="bi bi-heart-fill"></i>{{ article.favoris|length }}</span>
+                                    {# <span class="favoris"><i class="bi bi-heart-fill"></i>{{ article.favoris|length }}</span> #}
                                     <span><img src="{{ asset('uploads/avatar/' ~article.user.avatar) }}" alt="{{ article.user.username }}" class="rounded-0 img-thumbnail" width="50" height="50">  {{ article.user.username }}</span>
                                 </div>
-                                <div class="txt-red">
+                                {# <div class="txt-red">
                                     {% if app.user %}
                                         {% set isFavorite = false %}
                                         {% for favoris in article.favoris %}
@@ -52,7 +52,7 @@
                                         {% endif %}
 
                                     {% endif %}
-                                </div>
+                                </div> #}
                             </div>
                         </div>
                     {% endfor %}
