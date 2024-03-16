@@ -25,6 +25,7 @@ class UserFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Adresse Email',
             ])
+            // Dans le cas d’une collection, on force Symfony à appeler les méthodes add et remove de l’attribut.
             ->add('roles', CollectionType::class, [
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [

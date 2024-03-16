@@ -33,7 +33,7 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'Nos règles d\'utilisation',
+                'label' => '« En soumettant ce formulaire, j’accepte que devBlog.com conserve mes données personnelles via ce formulaire. Aucune exploitation commerciale ne sera faite des données conservées.»',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
