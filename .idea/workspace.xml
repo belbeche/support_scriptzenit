@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b6e5c2e-ff46-4bd5-9f75-d5689d15c058" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/blog_2022.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/blog_2022.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/blog_2022.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/blog_2022.iml" afterDir="false" />
+>>>>>>> ee753d2cde2de25e40d1425fb175da3ea882c265
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
@@ -95,7 +100,10 @@
       <change beforePath="$PROJECT_DIR$/templates/front/includes/_article_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/includes/_article_form.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/front/includes/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/includes/nav.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/front/result.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/result.html.twig" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html.twig" afterDir="false" />
+=======
+>>>>>>> ee753d2cde2de25e40d1425fb175da3ea882c265
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -334,7 +342,10 @@
       <workItem from="1666201190623" duration="648000" />
       <workItem from="1666255442275" duration="17000" />
       <workItem from="1671317460479" duration="382000" />
+<<<<<<< HEAD
       <workItem from="1710602250174" duration="946000" />
+=======
+>>>>>>> ee753d2cde2de25e40d1425fb175da3ea882c265
     </task>
     <servers />
   </component>
