@@ -28,6 +28,8 @@ class FrontController extends AbstractController
 
         $data = $entityManager->getRepository(Article::class)->findBy(['isPublished' => true], ['id' => 'desc']);
 
+        $users = $entityManager->getRepository(User::class)->findAll();
+
         $articles = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),
@@ -58,6 +60,7 @@ class FrontController extends AbstractController
         return $this->render('front/home.html.twig', [
             'articles' => $articles,
             'categories' => $categories,
+            'users' => $users
         ]);
     }
 
