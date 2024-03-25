@@ -36,9 +36,6 @@ class UserFormType extends AbstractType
                         'Editeur' => 'ROLE_MODO',
                     ],
                 ],
-                'attr' => [
-                    'class' => 'selectpicker'
-                ],
             ])
             // image field not linked to the database, mapped false
             ->add('avatar', FileType::class, [

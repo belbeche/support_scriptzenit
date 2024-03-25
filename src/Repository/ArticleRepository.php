@@ -81,6 +81,21 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findBySubject(){
+        return $this
+            ->createQueryBuilder('a') // Utilisation de l'alias 'a'
+            ->where('a.isPublished = :published OR a.isPublished = :unpublished') // Utilisation de l'alias 'a'
+            ->orderBy('a.id', 'DESC') // Utilisation de l'alias 'a'
+            ->setParameter('published', true)
+            ->setParameter('unpublished', false)
+            ->getQuery();
+    }
+
+
+
+
+
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

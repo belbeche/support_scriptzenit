@@ -7,16 +7,21 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\User;
 use App\Entity\UserLike;
+use App\Form\EditProfileType;
 use App\Form\Model\SearchModel;
 use App\Form\Search\SearchType;
+use App\Form\User\Type\UserFormType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use phpDocumentor\Reflection\Types\Mixed_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use function Amp\Promise\all;
 
 class FrontController extends AbstractController
 {
@@ -206,6 +211,98 @@ class FrontController extends AbstractController
         return $this->render('front/article/blog.html.twig', [
             'articles' => $articles,
             'categories' => $categories
+        ]);
+    }
+    /**
+     * @Route("/profil", name="front_profil")
+     * @return Response
+     */
+    public function showProfil(): Response
+    {
+
+        return $this->render('front/profil/show.html.twig');
+    }
+
+    /**
+     * @Route("/utilisateur/modifier/profil", name="front_edit_profile")
+     * @return Response
+     */
+    public function EditProfile(Request $request,EntityManagerInterface $entityManager,UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(EditProfileType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $images = $form->get('avatar')->getData();
+
+            if($images) {
+
+                // We generate a new file name
+                $file = md5(uniqid()) . '.' . $images->guessExtension();
+
+                // We copy the file in the uploads folder
+                $images->move(
+                    $this->getParameter('profile_directory'),
+                    $file
+                );
+
+                // Create the image in the database
+
+                $user->setAvatar($file);
+            }
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('message', 'Profil mis à jour');
+            return $this->redirectToRoute('front_profil');
+        }
+
+        return $this->render('front/profil/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/utilisateur/sujet/{id}", name="front_user_subject")
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function mySubject(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator)
+    {
+
+        $data = $entityManager->getRepository(Article::class)->findBySubject();
+
+        $articles = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),
+            4
+        );
+
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
+        return $this->render('front/profil/profil_subject.html.twig', [
+            'articles' => $articles,
+            'categories' => $categories
+        ]);
+    }
+
+    /**
+     * @Route("/utilisateur/reponses/{id}", name="front_user_response_subject")
+     */
+    public function myResponse(EntityManagerInterface $entityManager,$id): Response
+    {
+        $article = $entityManager->getRepository(Article::class)->find($id);
+        return $this->render('front/profil/user_response_subject.html.twig', [
+            'article' => $article
         ]);
     }
 }

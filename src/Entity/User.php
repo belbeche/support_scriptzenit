@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -64,7 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany (targetEntity=Article::class, mappedBy="user")
      */
-    private $articles;
+    private Collection $articles;
 
     /**
      * @ORM\OneToMany (targetEntity=Comment::class, mappedBy="user")
@@ -209,7 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return ArrayCollection
      */
-    public function getArticles(): ArrayCollection
+    public function getArticles(): Collection
     {
         return $this->articles;
     }
@@ -320,5 +321,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeLike(UserLike $like)
     {
         $this->likes->removeElement($like);
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
     }
 }
