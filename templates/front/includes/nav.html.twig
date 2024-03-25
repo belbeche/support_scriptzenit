@@ -1,0 +1,191 @@
+{#
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<div
+		class="container-fluid">
+		<!--<a class="navbar-brand" href="{{ url('front_home') }}">devBlog</a>-->
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item {{ app.request.get('_route') == 'front_home' ? 'active' : '' }}">
+					<a class="nav-link" href="{{ url('front_home') }}">Accueil</a>
+				</li>
+				<li class="nav-item {{ app.request.get('_route') == 'front_blog' ? 'active' : '' }}">
+					<a class="nav-link" href="{{ url('front_blog') }}">Blog</a>
+				</li>
+				<li class="nav-item {{ app.request.get('_route') == 'front_contact' ? 'active' : '' }}">
+					<a class="nav-link" href="mailto:wbelbeche.s@gmail.com">
+						<i class="bi bi-envelope-plus"></i>
+						Contact</a>
+				</li>
+				#}
+{#<li class="nav-item dropdown">
+																																																																																				                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+																																																																																				                    <div class="dropdown-menu">
+																																																																																				                        <a class="dropdown-item" href="#">Action</a>
+																																																																																				                        <a class="dropdown-item" href="#">Another action</a>
+																																																																																				                        <a class="dropdown-item" href="#">Something else here</a>
+																																																																																				                        <div class="dropdown-divider"></div>
+																																																																																				                        <a class="dropdown-item" href="#">Separated link</a>
+																																																																																				                    </div>
+																																																																																				                </li>#}{#
+
+			</ul>
+			{% if app.user %}
+				#}
+{# <li class="nav-item {{ app.request.get('_route') == 'front_favorites' ? 'active' : '' }}" style="list-style-type: none;">
+									<a class="btn btn-cta-secondary mr-5" href="{{ url('front_favorites', {id: app.user.id }) }}">
+										<i class="bi bi-bookmark-dash-fill"></i>
+										Mes favoris</a>
+								</li> #}{#
+
+			{% else %}
+				<li class="nav-item {{ app.request.get('_route') == 'app_login_authenticator' ? 'active' : '' }}" style="list-style-type: none;">
+					<a class="btn btn-secondary mr-5" href="{{ path('app_login_authenticator') }}">Se connecter</a>
+				</li>
+				<li class="nav-item {{ app.request.get('_route') == 'app_register' ? 'active' : '' }}" style="list-style-type: none;">
+					<a class="btn primary-btn btn-info" href="{{ path('app_register') }}">Ouvrir un compte</a>
+				</li>
+			{% endif %}
+			{% if is_granted('ROLE_USER') %}
+				<li class="nav-item {{ app.request.get('_route') == 'front_articles_new' ? 'active' : '' }}" style="list-style-type: none;">
+					<a class="btn btn-cta-primary mr-5" href="{{ url('front_articles_new') }}">Publier un article</a>
+				</li>
+			{% endif %}
+			{% if is_granted('ROLE_ADMIN') %}
+				<li class="nav-item {{ app.request.get('_route') == 'back_home' ? 'active' : '' }}" style="list-style-type: none;">
+					<a class="btn btn-info mr-5" href="{{ url('back_home') }}">Admin</a>
+				</li>
+			{% endif %}
+			{% if app.user %}
+				<li class="nav-item" style="list-style-type: none;">
+					<a class="btn btn-danger" href="{{ url('app_logout') }}">
+						<i class="bi bi-box-arrow-left"></i>
+						Déconnexion</a>
+				</li>
+			{% endif %}
+		</div>
+	</div>
+</nav>
+#}
+<!-- Document Wrapper
+	============================================= -->
+<div id="wrapper">
+	<!-- Header
+		============================================= -->
+	<header id="header" class="full-header header-size-md">
+		<div id="header-wrap">
+			<div class="container">
+				<div class="header-row">
+
+					<!-- Logo
+                    ============================================= -->
+					<div id="logo">
+						<a href="{{ url('front_home') }}">
+						</a>Support <br> <i>ScriptZenIT</i>
+					</div><!-- #logo end -->
+
+					<div class="header-misc ms-0">
+						{% if not app.user %}
+						<ul class="menu-container">
+							<li class="menu-item"><a class="menu-link" href="{{ url('app_login_authenticator') }}"><div>Connexion</div></a></li>
+							<li class="menu-item"><a class="menu-link" href="{{ url('app_register') }}"><div>Inscription</div></a></li>
+						</ul>
+						{% else %}
+						<!-- #top-search end -->
+							<!-- Top Account
+							============================================= -->
+							{#<div class="header-misc-icon">
+								<a href="#" id="notifylink" data-bs-toggle="dropdown" data-bs-offset="0,15" aria-haspopup="true" aria-expanded="false" data-offset="12,12"><i class="bi-bell notification-badge"></i></a>
+								<div class="dropdown-menu dropdown-menu-end py-0 m-0 overflow-auto" aria-labelledby="notifylink" style="width: 320px; max-height: 300px">
+									<span class="dropdown-header border-bottom border-f5 fw-medium text-uppercase ls-1">Notifications</span>
+									<div class="list-group list-group-flush">
+										<a href="#" class="d-flex list-group-item">
+											<img src="{{ asset('uploads/avatar/'~app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 mt-1" alt="{{ app.user.username }}">
+											<div class="media-body">
+												<h5 class="my-0 fw-normal text-muted"><span class="text-dark fw-bold">{{ app.user.comments.content }}</span> a répondu à votre message</h5>
+												#}{#<small class="text-smaller">10 mins ago</small>#}{#
+											</div>
+										</a>
+										<a href="#" class="d-flex list-group-item">
+											<i class="bi-check-lg badge-icon bg-success text-white me-3 mt-1"></i>
+											<div class="media-body">
+												<h5 class="my-0 fw-normal text-muted"><span class="text-dark fw-bold">{{ app.user.comments.last }}</span> a marqué votre message comme résolu.</h5>
+												#}{#<small class="text-smaller">2 days ago</small>#}{#
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>#}
+							<!-- Top Account
+							============================================= -->
+							<div class="header-misc-icon profile-image">
+								<a href="#" id="profilelink" data-bs-toggle="dropdown" data-bs-offset="0,15" aria-haspopup="true" aria-expanded="false" data-offset="12,12"><img src="{{ asset('uploads/avatar/'~app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 mt-1" alt="{{ app.user.username }}"></a>
+								<div class="dropdown-menu dropdown-menu-end py-0 m-0" aria-labelledby="profilelink">
+									<a class="dropdown-item" href="{{ url('front_edit_profile') }}"><i class="bi-pencil-square me-2"></i>Modifier le profil</a>
+									<a class="dropdown-item" href="{{ url('front_user_subject', {id: app.user.id}) }}"><i class="bi-text-left me-2"></i>Vos sujets</a>
+									<a class="dropdown-item" href="{{ url('app_logout') }}"><i class="bi-box-arrow-right me-2"></i>Déconnexion</a>
+								</div>
+							</div>
+						{% endif %}
+					</div>
+
+					<div class="primary-menu-trigger">
+						<button class="cnvs-hamburger" type="button" title="Open Mobile Menu">
+							<span class="cnvs-hamburger-box"><span class="cnvs-hamburger-inner"></span></span>
+						</button>
+					</div>
+
+					<!-- Primary Navigation
+                    ============================================= -->
+					<nav class="primary-menu">
+
+						<ul class="menu-container">
+							<li class="menu-item"><a class="menu-link" href="{{ url('front_home') }}"><div>Accueil support</div></a></li>
+							<li class="menu-item"><a class="menu-link" href="{{ url('front_articles_new') }}"><div>Créer une demande</div></a></li>
+						</ul>
+
+					</nav><!-- #primary-menu end -->
+
+					{#<form class="top-search-form bg-alt dark" action="search.html" method="get">
+						<div class="container row justify-content-center">
+							<div class="col-sm-8">
+								<input type="text" name="q" class="form-control form-control-lg mb-5 border-color" value="" placeholder="Type Your Query &amp; Hit Enter.." autocomplete="off">
+								<div class="row col-mb-30">
+									<div class="col-md-6">
+										<div class="widget widget_links">
+											<h4 class="">Recent Topics</h4>
+											<ul>
+												<li><a href="demo-forum-single.html">Package Generator – Approx time for a file</a></li>
+												<li><a href="demo-forum-single.html">Open sub-menu touching menu-item name</a></li>
+												<li><a href="demo-forum-single.html">Portfolio Overlay Slide fadein fadeout</a></li>
+												<li><a href="demo-forum-single.html">Show menu .dropdown-menu down only</a></li>
+												<li><a href="demo-forum-single.html">Couldnt Generate Package Snippet</a></li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="widget widget_links">
+											<h4 class="">Helpful Documentation</h4>
+											<ul>
+												<li><a href="demo-forum-single.html">How to Install</a></li>
+												<li><a href="demo-forum-single.html">How to setup Niche Demos</a></li>
+												<li><a href="demo-forum-single.html">Header Layouts and Styles</a></li>
+												<li><a href="demo-forum-single.html">Setup Forms</a></li>
+												<li><a href="demo-forum-single.html">Setup RTL</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>#}
+
+				</div>
+			</div>
+		</div>
+		<div class="header-wrap-clone"></div>
+	</header><!-- #header end -->
+</div>

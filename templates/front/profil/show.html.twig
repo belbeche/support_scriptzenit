@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+
+    <!-- Page Title
+		============================================= -->
+    <section class="page-title bg-color border-bottom-0">
+        <div class="container">
+            <div class="page-title-row">
+
+                <div class="page-title-content">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('uploads/avatar/'~app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 border border-width-3 border-white" alt="{{ app.user.username }}" width="120" height="120">
+                        <div>
+                            <h2 class="h1 border-bottom border-dark border-width-4" style="font-weight: 800">Profil de {{ app.user.username }}</h2>
+                            <p class="mb-0">Rôle du forum : <strong>{% for role in app.user.roles %}{{ role }}{% endfor %}</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a class="alt-color" href="{{ url('front_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item text-black-50 active" aria-current="page">{{ app.user.username }}</li>
+                    </ol>
+                </nav>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Page Sub Menu
+    ============================================= -->
+    <div id="page-menu" class="no-sticky">
+        <div id="page-menu-wrap" class="bg-alt">
+            <div class="container">
+                <div class="page-menu-row">
+
+                    <nav class="page-menu-nav">
+                        <ul class="page-menu-container">
+                            <li class="page-menu-item current"><a href="#"><div>Profil</div></a></li>
+                            <li class="page-menu-item"><a href="{{ url('front_user_subject', {id: app.user.id}) }}"><div>Sujets abordés</div></a>
+                            </li>
+                            <li class="page-menu-item"><a href="{{ url('front_user_response_subject', {id: app.user.id}) }}"><div>Réponses créées</div></a></li>
+                            <li class="page-menu-item"><a href="{{ url('front_edit_profile') }}"><div>Modifier</div></a></li>
+                        </ul>
+                    </nav>
+
+                    <div id="page-menu-trigger"><i class="bi-list"></i></div>
+
+                </div>
+            </div>
+        </div>
+    </div><!-- #page-menu end -->
+
+    <!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container mw-md">
+
+                <h3 class="h1 fw-bolder mb-4">Profil</h3>
+
+                <div class="row col-mb-30 gutter-50">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled mb-0">
+                            <li class="py-2 text-larger">Rôle du forum: <strong>{% for role in app.user.roles %}{{ role }}{% endfor %}</strong></li>
+                            <li class="py-2 text-larger">Sujets abordés: <strong>{{ app.user.articles|length }}</strong></li>
+                            <li class="py-2 text-larger">Réponses créées: <strong>{{ app.user.comments|length }}</strong></li>
+                            <li class="py-2 text-larger">Email: <strong>{{ app.user.email}}</strong></li>
+                            <li class="py-2 text-larger">Pack assistance: <strong class="text-success">Actif</strong></li>
+                            <li class="py-2 text-larger">identifiant: <strong>{{ app.user.id }}</strong></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1">Votre licence achetée:</p>
+                        <div class="card border-color p-4">
+                            <h4 class="mb-1 fw-bolder"><a href="#">Site vitrine moderne</a></h4>
+                            <p class="mb-1">Expiration de l'assistance: <strong class="text-success">33 jours</strong></p>
+                            <p class="mb-0">Acheté le: <strong>2020-03-24T17:29:47+11:00</strong></p>
+                        </div>
+                        <a href="{{ url('front_articles_new') }}" class="button button-large bg-color button-light text-dark py-2 rounded-1 fw-medium text-transform-none ls-0 ms-0 mt-3">J'ai besoin d'assistance</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- #content end -->
+
+{% endblock %}
