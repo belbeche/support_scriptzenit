@@ -23,6 +23,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use function Amp\Promise\all;
 
+
 class FrontController extends AbstractController
 {
     /**

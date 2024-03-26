@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -24,6 +29,35 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
+    /**
+     * @Route("/api/register", name="api_register")
+     */
+    public function register(Request $request,EntityManagerInterface $entityManager,UserPasswordHasherInterface $hasher): jsonResponse
+    {
+
+        /*$data = json_decode($request->getContent(), true);
+        dump($data);
+        $user = new User();
+
+        $user
+            ->setUsername($data['userFirstName'] . ' ' . $data['userLastName'])
+            ->setEmail($data['userEmail'])
+            ->setRoles(['ROLE_USER'])
+        ;
+
+        $user
+            ->setPassword($hasher->hashpassword(
+                $user,
+                $data['userFirstPassword']
+            ))
+        ;
+        /*$entityManager->persist($user);
+
+        $entityManager->flush();*/
+
+        return new jsonResponse('success');
     }
 
     /**
