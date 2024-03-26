@@ -11,26 +11,37 @@
         </nav>
     </div>
 
-    <div class="container mt-4">
-        <h1>Ajouter un article </h1>
-        <h6>en tant que utilisateur, <small>nécessite une révision par un administrateur avant publication.</small></h6>
+    <div class="b-example-divider"></div>
 
-        {% if app.request.attributes.get('_route') == 'back_articles_new' %}
-            <hr>
-            <h2>Gestion des images</h2>
-            {% for image in article.images %}
-                <div>
-                    <img src="{{ asset('/uploads/'~image.name) }}" alt="{{ article.name }}" width="150">
+    <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <h1 class="display-4 fw-bold">Interagissez, publier votre premier sujet ! <span class="badge-danger">En brouillon, <br> attente de validation</span> </h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">En tant qu'utilisateur quotidian de l'informatique et de qu'il en suit, laissez-moi vous présenter le web de façon sur mesure !</small>.</p>
+        </div>
+        <div class="overflow-hidden">
+            <div class="container">
 
-                    {# We add a link to delete an image (will be managed in Ajax in images.js) #}
-                    <a href="{{ path('back_articles_remove_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">
-                        <i class="bi bi-file-earmark-x"></i>
-                        Supprimer
-                    </a>
-                </div>
-            {% endfor %}
-        {% endif %}
-        <br>
-        {% include 'front/includes/_article_form.html.twig' %}
+{#
+                <img src="{{ asset('src/images/hero.jpg') }}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="hero" width="700" height="300" loading="lazy">
+#}
+
+                {% include 'front/includes/_article_form.html.twig' %}
+                {% if app.request.attributes.get('_route') == 'back_articles_new' %}
+                    <hr>
+                    <h2>Gestion des images</h2>
+                    {% for image in article.images %}
+                        <div>
+                            <img src="{{ asset('/uploads/'~image.name) }}" alt="{{ article.name }}" width="150">
+
+                            {# We add a link to delete an image (will be managed in Ajax in images.js) #}
+                            <a href="{{ path('back_articles_remove_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">
+                                <i class="bi bi-file-earmark-x"></i>
+                                Supprimer
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}

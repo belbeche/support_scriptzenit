@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,12 +33,12 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/api/register", name="api_register")
+     * @Route("/api/register", name="api_register", methods={"POST","GET"})
      */
     public function register(Request $request,EntityManagerInterface $entityManager,UserPasswordHasherInterface $hasher): jsonResponse
     {
 
-        /*$data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true);
         dump($data);
         $user = new User();
 
@@ -53,9 +54,9 @@ class SecurityController extends AbstractController
                 $data['userFirstPassword']
             ))
         ;
-        /*$entityManager->persist($user);
+        $entityManager->persist($user);
 
-        $entityManager->flush();*/
+        $entityManager->flush();
 
         return new jsonResponse('success');
     }
