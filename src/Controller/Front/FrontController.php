@@ -303,7 +303,7 @@ class FrontController extends AbstractController
     {
         $article = $entityManager->getRepository(Article::class)->find($id);
         return $this->render('front/profil/user_response_subject.html.twig', [
-            'article' => $article
+            'article' => $article,
         ]);
     }
 }
