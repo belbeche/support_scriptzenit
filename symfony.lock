@@ -93,6 +93,7 @@
     "mercuryseries/flashy-bundle": {
         "version": "v5.1.0"
     },
+<<<<<<< HEAD
     "nelmio/cors-bundle": {
         "version": "2.4",
         "recipe": {
@@ -105,6 +106,8 @@
             "./config/packages/nelmio_cors.yaml"
         ]
     },
+=======
+>>>>>>> c98aebc (MVP)
     "phpunit/phpunit": {
         "version": "9.5",
         "recipe": {

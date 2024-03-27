@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+<<<<<<< HEAD
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -10,6 +11,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+=======
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+>>>>>>> c98aebc (MVP)
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -33,6 +38,7 @@ class SecurityController extends AbstractController
     }
 
     /**
+<<<<<<< HEAD
      * @Route("/api/register", name="api_register", methods={"POST","GET"})
      */
     public function register(Request $request,EntityManagerInterface $entityManager,UserPasswordHasherInterface $hasher): jsonResponse
@@ -62,6 +68,8 @@ class SecurityController extends AbstractController
     }
 
     /**
+=======
+>>>>>>> c98aebc (MVP)
      * @Route("/logout", name="app_logout")
      */
     public function logout(): void

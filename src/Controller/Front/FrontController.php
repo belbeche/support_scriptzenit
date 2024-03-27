@@ -23,7 +23,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use function Amp\Promise\all;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c98aebc (MVP)
 class FrontController extends AbstractController
 {
     /**
@@ -303,6 +306,7 @@ class FrontController extends AbstractController
     {
         $article = $entityManager->getRepository(Article::class)->find($id);
         return $this->render('front/profil/user_response_subject.html.twig', [
+<<<<<<< HEAD
             'article' => $article,
         ]);
     }
@@ -320,4 +324,9 @@ class FrontController extends AbstractController
 
         return $this->redirectToRoute('front_user_subject');
     }
+=======
+            'article' => $article
+        ]);
+    }
+>>>>>>> c98aebc (MVP)
 }

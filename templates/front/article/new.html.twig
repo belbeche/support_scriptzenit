@@ -11,6 +11,7 @@
         </nav>
     </div>
 
+<<<<<<< HEAD
     <div class="b-example-divider"></div>
 
     <div class="px-4 pt-5 my-5 text-center border-bottom">
@@ -43,5 +44,28 @@
                 {% endif %}
             </div>
         </div>
+=======
+    <div class="container mt-4">
+        <h1>Ajouter un article </h1>
+        <h6>en tant que utilisateur, <small>nécessite une révision par un administrateur avant publication.</small></h6>
+
+        {% if app.request.attributes.get('_route') == 'back_articles_new' %}
+            <hr>
+            <h2>Gestion des images</h2>
+            {% for image in article.images %}
+                <div>
+                    <img src="{{ asset('/uploads/'~image.name) }}" alt="{{ article.name }}" width="150">
+
+                    {# We add a link to delete an image (will be managed in Ajax in images.js) #}
+                    <a href="{{ path('back_articles_remove_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">
+                        <i class="bi bi-file-earmark-x"></i>
+                        Supprimer
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <br>
+        {% include 'front/includes/_article_form.html.twig' %}
+>>>>>>> c98aebc (MVP)
     </div>
 {% endblock %}

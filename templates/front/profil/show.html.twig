@@ -15,7 +15,11 @@
                         <img src="{{ asset('uploads/avatar/'~app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 border border-width-3 border-white" alt="{{ app.user.username }}" width="120" height="120">
                         <div>
                             <h2 class="h1 border-bottom border-dark border-width-4" style="font-weight: 800">Profil de {{ app.user.username }}</h2>
+<<<<<<< HEAD
                             <p class="mb-0">Rôle du forum : <strong>{% for role in app.user.roles %}, {{ role }}{% endfor %}</strong></p>
+=======
+                            <p class="mb-0">Rôle du forum : <strong>{% for role in app.user.roles %}{{ role }}{% endfor %}</strong></p>
+>>>>>>> c98aebc (MVP)
                         </div>
                     </div>
                 </div>
@@ -60,16 +64,27 @@
     <section id="content">
         <div class="content-wrap">
             <div class="container mw-md">
+<<<<<<< HEAD
                 <div class="row col-mb-30 gutter-50">
                     <div class="col-md-6">
                         <ul class="list-unstyled mb-0">
                             <li class="py-2 text-larger">Rôle du forum: <strong>{% for role in app.user.roles %},{{ role }}{% endfor %}</strong></li>
+=======
+
+                <h3 class="h1 fw-bolder mb-4">Profil</h3>
+
+                <div class="row col-mb-30 gutter-50">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled mb-0">
+                            <li class="py-2 text-larger">Rôle du forum: <strong>{% for role in app.user.roles %}{{ role }}{% endfor %}</strong></li>
+>>>>>>> c98aebc (MVP)
                             <li class="py-2 text-larger">Sujets abordés: <strong>{{ app.user.articles|length }}</strong></li>
                             <li class="py-2 text-larger">Réponses créées: <strong>{{ app.user.comments|length }}</strong></li>
                             <li class="py-2 text-larger">Email: <strong>{{ app.user.email}}</strong></li>
                             <li class="py-2 text-larger">Pack assistance: <strong class="text-success">Actif</strong></li>
                             <li class="py-2 text-larger">identifiant: <strong>{{ app.user.id }}</strong></li>
                         </ul>
+<<<<<<< HEAD
                         <a href="{{ url('front_user_remove', {id: app.user.id.toRfc4122}) }}" class="btn btn-lg btn-block btn-outline-danger">Effacer mes données</a>
                     </div>
                     <div class="col-md-6">
@@ -106,5 +121,23 @@
         </div>
     </section>
     <!-- #content end -->
+=======
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1">Votre licence achetée:</p>
+                        <div class="card border-color p-4">
+                            <h4 class="mb-1 fw-bolder"><a href="#">Site vitrine moderne</a></h4>
+                            <p class="mb-1">Expiration de l'assistance: <strong class="text-success">33 jours</strong></p>
+                            <p class="mb-0">Acheté le: <strong>2020-03-24T17:29:47+11:00</strong></p>
+                        </div>
+                        <a href="{{ url('front_articles_new') }}" class="button button-large bg-color button-light text-dark py-2 rounded-1 fw-medium text-transform-none ls-0 ms-0 mt-3">J'ai besoin d'assistance</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- #content end -->
+>>>>>>> c98aebc (MVP)
 
 {% endblock %}

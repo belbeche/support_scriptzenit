@@ -1,4 +1,8 @@
 ###> symfony/framework-bundle ###
+<<<<<<< HEAD
+=======
+/.env
+>>>>>>> c98aebc (MVP)
 .env/
 /.env.local
 /.env.local.php

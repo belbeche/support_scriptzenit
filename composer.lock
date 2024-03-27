@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "4710543a77677b601da74a222a79aa59",
+=======
+    "content-hash": "e6283cc45921c5fae26b239497d8cef4",
+>>>>>>> c98aebc (MVP)
     "packages": [
         {
             "name": "amphp/amp",
@@ -4096,6 +4100,7 @@
             "time": "2023-10-27T15:25:26+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "nelmio/cors-bundle",
             "version": "2.4.0",
             "source": {
@@ -4158,6 +4163,8 @@
             "time": "2023-11-30T16:41:19+00:00"
         },
         {
+=======
+>>>>>>> c98aebc (MVP)
             "name": "phpdocumentor/reflection-common",
             "version": "2.2.0",
             "source": {
