@@ -306,4 +306,18 @@ class FrontController extends AbstractController
             'article' => $article,
         ]);
     }
+
+    /**
+     * @Route("/utilisateur/supression/{id}", name="front_user_remove")
+     */
+
+    public function remove(EntityManagerInterface $entityManager, $id): Response
+    {
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('front_user_subject');
+    }
 }
