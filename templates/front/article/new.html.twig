@@ -31,7 +31,7 @@
                     <h2>Gestion des images</h2>
                     {% for image in article.images %}
                         <div>
-                            <img src="{{ asset('/uploads/'~image.name) }}" alt="{{ article.name }}" width="150">
+                            <img src="{{ asset('/uploads/subject'~image.name) }}" alt="{{ article.name }}" width="150">
 
                             {# We add a link to delete an image (will be managed in Ajax in images.js) #}
                             <a href="{{ path('back_articles_remove_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">

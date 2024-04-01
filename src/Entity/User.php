@@ -99,6 +99,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->avatar = 'uploads/avatar/support0.svg';
     }
 
     public function getId(): ?Uuid

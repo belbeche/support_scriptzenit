@@ -12,10 +12,10 @@
 
                 <div class="page-title-content">
                     <div class="d-flex align-items-center">
-                        <img src="{{ asset('uploads/avatar/'~app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 border border-width-3 border-white" alt="{{ app.user.username }}" width="120" height="120">
+                        <img src="{{ asset(''~app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 border border-width-3 border-white" alt="{{ app.user.username }}" width="120" height="120">
                         <div>
                             <h2 class="h1 border-bottom border-dark border-width-4" style="font-weight: 800">Profil de {{ app.user.username }}</h2>
-                            <p class="mb-0">Rôle du forum : <strong>{% for role in app.user.roles %}, {{ role }}{% endfor %}</strong></p>
+                            <p class="mb-0">Rôle du forum : <strong>{% for role in app.user.roles %}{{ role }}{% if not loop.last %}, {% endif %}{% endfor %}</strong></p>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                 <div class="row col-mb-30 gutter-50">
                     <div class="col-md-6">
                         <ul class="list-unstyled mb-0">
-                            <li class="py-2 text-larger">Rôle du forum: <strong>{% for role in app.user.roles %},{{ role }}{% endfor %}</strong></li>
+                            <li class="py-2 text-larger">Rôle du forum: <strong>{% for role in app.user.roles %}{{ role }}{% if not loop.last %}, {% endif %}{% endfor %}</strong></li>
                             <li class="py-2 text-larger">Sujets abordés: <strong>{{ app.user.articles|length }}</strong></li>
                             <li class="py-2 text-larger">Réponses créées: <strong>{{ app.user.comments|length }}</strong></li>
                             <li class="py-2 text-larger">Email: <strong>{{ app.user.email}}</strong></li>
@@ -87,15 +87,15 @@
                         <div class="card-deck mb-3 text-center">
                         <div class="card mb-4 box-shadow">
                         <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">Gratuit</h4>
+                            <h4 class="my-0 font-weight-normal">Free</h4>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title pricing-card-title">0 € <small class="text-muted">/ mois</small></h1>
+                            <h1 class="card-title pricing-card-title">Hébergement VPS<small class="text-muted">inclus</small></h1>
                             <ul class="list-unstyled mb-4">
-                            <li>10 giga inclus</li>
-                            <li>2 GB of storage</li>
-                            <li>Email support</li>
-                            <li>Assistance center accèss</li>
+                                <li>Nombre de processeur : 8 vCPU</li>
+                                <li>Nombre de mémoire vive : 8GB RAM</li>
+                                <li>Espace de stockage: 50GB SSD (RAID 10)</li>
+                                <li>Data center : Nice, France</li>
                             </ul>
                             <a href="https://scriptzenit.fr/devis-en-ligne" class="btn btn-lg btn-block btn-outline-primary">Faite une nouvelle demande</a>
                         </div>

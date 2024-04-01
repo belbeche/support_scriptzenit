@@ -120,7 +120,9 @@
 							<!-- Top Account
 							============================================= -->
 							<div class="header-misc-icon profile-image">
-								<a href="#" id="profilelink" data-bs-toggle="dropdown" data-bs-offset="0,15" aria-haspopup="true" aria-expanded="false" data-offset="12,12"><img src="{{ asset('uploads/avatar/'~app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 mt-1" alt="{{ app.user.username }}"></a>
+								<a href="#" id="profilelink" data-bs-toggle="dropdown" data-bs-offset="0,15" aria-haspopup="true" aria-expanded="false" data-offset="12,12">
+									<img src="{{ asset(''~ app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 mt-1" alt="{{ app.user.username }}">
+								</a>
 								<div class="dropdown-menu dropdown-menu-end py-0 m-0" aria-labelledby="profilelink">
 									<a class="dropdown-item" href="{{ url('front_profil', {id: app.user.id.toRfc4122}) }}"><i class="bi-text-left me-2"></i>Mon profil</a>
 									<a class="dropdown-item" href="{{ url('front_edit_profile') }}"><i class="bi-pencil-square me-2"></i>Modifier mon profil</a>

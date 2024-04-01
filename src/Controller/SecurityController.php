@@ -39,7 +39,7 @@ class SecurityController extends AbstractController
     {
 
         $data = json_decode($request->getContent(), true);
-        dump($data);
+        /*dump($data);*/
         $user = new User();
 
         $user

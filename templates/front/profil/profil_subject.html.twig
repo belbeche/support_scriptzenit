@@ -31,29 +31,32 @@
         </div>
     </section>
 
-    <!-- Page Sub Menu
-   ============================================= -->
-    <div id="page-menu" class="no-sticky">
-        <div id="page-menu-wrap" class="bg-alt">
-            <div class="container">
-                <div class="page-menu-row">
+    {% if app.user %}
+        <!-- Page Sub Menu  -->
+        <div id="page-menu" class="no-sticky">
+            <div id="page-menu-wrap" class="bg-alt">
+                <div class="container">
+                    <div class="page-menu-row">
 
-                    <nav class="page-menu-nav">
-                        <ul class="page-menu-container">
-                            <li class="page-menu-item"><a href="{{ url('front_profil') }}"><div>Profil</div></a></li>
-                            <li class="page-menu-item current"><a href="{{ url('front_user_subject', {id: app.user.id}) }}"><div>Sujets abordés</div></a>
-                            </li>
-                            <li class="page-menu-item"><a href="{{ url('front_user_response_subject', {id: app.user.id}) }}"><div>Réponses créées</div></a></li>
-                            <li class="page-menu-item"><a href="{{ url('front_edit_profile') }}"><div>Modifier</div></a></li>
-                        </ul>
-                    </nav>
+                        <nav class="page-menu-nav">
+                            <ul class="page-menu-container">
+                                <li class="page-menu-item"><a href="{{ url('front_profil') }}"><div>Profil</div></a></li>
+                                <li class="page-menu-item current"><a href="{{ url('front_user_subject', {id: app.user.id}) }}"><div>Sujets abordés</div></a>
+                                </li>
+                                <li class="page-menu-item"><a href="{{ url('front_user_response_subject', {id: app.user.id}) }}"><div>Réponses créées</div></a></li>
+                                <li class="page-menu-item"><a href="{{ url('front_edit_profile') }}"><div>Modifier</div></a></li>
+                            </ul>
+                        </nav>
 
-                    <div id="page-menu-trigger"><i class="bi-list"></i></div>
+                        <div id="page-menu-trigger"><i class="bi-list"></i></div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-    </div><!-- #page-menu end -->
+        </div><!-- #page-menu end -->
+    {% endif %}
+
+    
 
     <div class="container">
         <div id="my_subject">
