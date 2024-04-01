@@ -33,7 +33,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/api/register", name="api_register", methods={"POST","GET"})
+     * @Route("/api/register", name="api_register", methods={"POST"})
      */
     public function register(Request $request,EntityManagerInterface $entityManager,UserPasswordHasherInterface $hasher): jsonResponse
     {
@@ -41,6 +41,35 @@ class SecurityController extends AbstractController
         $data = json_decode($request->getContent(), true);
         /*dump($data);*/
         $user = new User();
+
+        $user
+            ->setUsername($data['userFirstName'] . ' ' . $data['userLastName'])
+            ->setEmail($data['userEmail'])
+            ->setRoles(['ROLE_USER'])
+        ;
+
+        $user
+            ->setPassword($hasher->hashpassword(
+                $user,
+                $data['userFirstPassword']
+            ))
+        ;
+        $entityManager->persist($user);
+
+        $entityManager->flush();
+
+        return new jsonResponse('success');
+    }
+
+    /**
+     * @Route("/api/editProfile", name="api_edit_profile", methods={"POST"})
+     */
+    public function editProfile(Request $request,EntityManagerInterface $entityManager,UserPasswordHasherInterface $hasher): jsonResponse
+    {
+
+        $data = json_decode($request->getContent(), true);
+        dd($data);
+        $user = $data->getUser();
 
         $user
             ->setUsername($data['userFirstName'] . ' ' . $data['userLastName'])

@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@ckeditor/ckeditor5-basic-styles": "^41.2.1",
+    "@ckeditor/ckeditor5-dev-utils": "^39.6.3",
+    "@ckeditor/ckeditor5-editor-decoupled": "^41.2.1",
+    "@ckeditor/ckeditor5-essentials": "^41.2.1",
+    "@ckeditor/ckeditor5-paragraph": "^41.2.1",
+    "@ckeditor/ckeditor5-theme-lark": "^41.2.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
+  }
+}

@@ -2,28 +2,36 @@
 
 {% block content %}
 
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('front_home') }}">Accueil</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Création article utilisateur de {% if app.user %} {{ app.user.username }} {% endif %}</li>
-            </ol>
-        </nav>
-    </div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+    <main>
+        <div class="bg-dark text-secondary px-4 py-5 text-center">
+            <div class="py-5">
+                <h1 class="display-5 fw-bold text-white">Assistance center</h1>
+                <div class="col-lg-6 mx-auto">
+                    <p class="fs-5 mb-4">Vous êtes sur le point de crée un sujet, afin de débloquer votre situation soit par un professionel de l'entrepsie ou bien un membre qualifié vous répondra et notre support également.</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <div class="b-example-divider"></div>
 
-    <div class="px-4 pt-5 my-5 text-center border-bottom">
+    <div class="px-4 pt-5 my-5 text-center border-bottom container">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('front_home') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Création article utilisateur de {% if app.user %} {{ app.user.username }} {% endif %}</li>
+                </ol>
+            </nav>
+        </div>
         <h1 class="display-4 fw-bold">Vous avez besoin d'échanger sur une problématique ? </h1>
         <div class="col-lg-6 mx-auto">
             <p class="lead mb-4">En tant qu'utilisateur de scriptzenit, vous êtes prioriataire sur notre forum,ce qui vous donne le droit d'intéragir avec nos fildèles sur le web et de bénficier d'une assistance permanante.</small>.</p>
         </div>
         <div class="overflow-hidden">
             <div class="container">
-
-{#
-                <img src="{{ asset('src/images/hero.jpg') }}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="hero" width="700" height="300" loading="lazy">
-#}
 
                 {% include 'front/includes/_article_form.html.twig' %}
                 {% if app.request.attributes.get('_route') == 'back_articles_new' %}
@@ -43,5 +51,16 @@
                 {% endif %}
             </div>
         </div>
+
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#contenu' ) )
+                .then( editor => {
+                    console.log( 'Editor was initialized', editor );
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
     </div>
 {% endblock %}

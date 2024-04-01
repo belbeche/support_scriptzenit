@@ -65,12 +65,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToMany (targetEntity=Article::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="user", orphanRemoval=true)
      */
     private Collection $articles;
 
     /**
-     * @ORM\OneToMany (targetEntity=Comment::class, mappedBy="user")
+     * @ORM\OneToMany (targetEntity=Comment::class, mappedBy="user", orphanRemoval=true)
      */
     private $comments;
 

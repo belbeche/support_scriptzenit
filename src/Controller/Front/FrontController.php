@@ -252,7 +252,7 @@ class FrontController extends AbstractController
 
                 // We copy the file in the uploads folder
                 $images->move(
-                    $this->getParameter('profile_directory'),
+                    $this->getParameter('uploads_directory'),
                     $file
                 );
 

@@ -28,7 +28,7 @@ class ArticleType extends AbstractType
             ->add('content', CKEditorType::class, [
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Contenu',
+                    'placeholder' => 'Soyez poli(e), décrivez votre problématique de manière clair et comprehensible pour tous,tous les membres peuvent écrire et apporter leurs solution, ne pas oublier de cloture le sujet une fois résolu.',
                 ],
             ])
             /*->add('categories', EntityType::class, [

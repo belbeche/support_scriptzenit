@@ -12,7 +12,7 @@
 
                 <div class="page-title-content">
                     <div class="d-flex align-items-center">
-                        <img src="{{ asset(''~app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 border border-width-3 border-white" alt="{{ app.user.username }}" width="120" height="120">
+                        <img src="{{ asset('/uploads/avatar/'~app.user.avatar) }}" width="35" height="35" class="rounded-circle me-3 border border-width-3 border-white" alt="{{ app.user.username }}" width="120" height="120">
                         <div>
                             <h2 class="h1 border-bottom border-dark border-width-4" style="font-weight: 800">Profil de {{ app.user.username }}</h2>
                             <p class="mb-0">Rôle du forum : <strong>{% for role in app.user.roles %}{{ role }}{% if not loop.last %}, {% endif %}{% endfor %}</strong></p>
@@ -67,10 +67,10 @@
                             <li class="py-2 text-larger">Sujets abordés: <strong>{{ app.user.articles|length }}</strong></li>
                             <li class="py-2 text-larger">Réponses créées: <strong>{{ app.user.comments|length }}</strong></li>
                             <li class="py-2 text-larger">Email: <strong>{{ app.user.email}}</strong></li>
-                            <li class="py-2 text-larger">Pack assistance: <strong class="text-success">Actif</strong></li>
+                            {#<li class="py-2 text-larger">Pack assistance: <strong class="text-success">Actif</strong></li>#}
                             <li class="py-2 text-larger">identifiant: <strong>{{ app.user.id }}</strong></li>
                         </ul>
-                        <a href="{{ url('front_user_remove', {id: app.user.id.toRfc4122}) }}" class="btn btn-lg btn-block btn-outline-danger">Effacer mes données</a>
+                        <a href="{{ url('front_user_remove', {id: app.user.id.toRfc4122}) }}" class="btn btn-lg btn-block btn-outline-danger">Effacer mes données et mon compte</a>
                     </div>
                     <div class="col-md-6">
                         {# <p class="mb-1">Votre demande:</p>
@@ -87,10 +87,10 @@
                         <div class="card-deck mb-3 text-center">
                         <div class="card mb-4 box-shadow">
                         <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">Free</h4>
+                            <h4 class="my-0 font-weight-normal">Statistique serveur<small class="text-muted">Actuel</small></h4>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title pricing-card-title">Hébergement VPS<small class="text-muted">inclus</small></h1>
+                            <h1 class="card-title pricing-card-title">Type : Hébergement VPS</h1>
                             <ul class="list-unstyled mb-4">
                                 <li>Nombre de processeur : 8 vCPU</li>
                                 <li>Nombre de mémoire vive : 8GB RAM</li>
