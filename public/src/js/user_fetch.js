@@ -1,3 +1,4 @@
+/*
 const btnRegister = document.querySelector('#btn-register');
 const btnEditProfile = document.querySelector('#btnEditProfile');
 
@@ -134,9 +135,10 @@ btnEditProfile.addEventListener('click', function(e) {
                 .then(response2 => {
                     // Redirection vers la page de connexion sur le deuxième site
                     console.log(url2.dataset.value)
-                    /*location.href = url2.dataset.redirectToLogin;*/
+                    /!*location.href = url2.dataset.redirectToLogin;*!/
                 })
                 .catch(error2 => console.error(error2));
         })
         .catch(error => console.error(error));
 });
+*/

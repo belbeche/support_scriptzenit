@@ -18,18 +18,18 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\ManyToMany(targetEntity=Article::class, mappedBy="categories")
      */
-    private $articles;
+    private ArrayCollection $articles;
 
     public function __construct()
     {
